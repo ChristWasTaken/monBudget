@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,14 +56,9 @@ public class Comptes extends AppCompatActivity{
 
     private void setWidget() {
         intent = getIntent();
-        linearLayoutCompte = findViewById(R.id.linearLayoutCompte);
         //Besoin du try catch si la bd est vide pour eviter le null pointer exception(crash de l'app)
         //todo ne marche pas soit trouver moyen pour arrenger ou ajouter bouton pour faire afficher
-        try {
-            afficherComptes(compteDBAdapter);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
+
     }
 
     private void afficherComptes(CompteDBAdapter compteDBAdapter) {

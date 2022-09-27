@@ -4,6 +4,7 @@ public class Compte {
     //Class pojo pour bd
 
     //Attributs
+    private int idCompte;
     private String description;
     private double solde;
     private String type;
@@ -12,7 +13,19 @@ public class Compte {
     private int numSuccursale;
 
     //Constructeurs
+    //Sans id pour l'ajout dans la base de donnee (auto-increment)
     public Compte(String description, double solde, String type, String institution, int numCompte, int numSuccursale) {
+        this.description = description;
+        this.solde = solde;
+        this.type = type;
+        this.institution = institution;
+        this.numCompte = numCompte;
+        this.numSuccursale = numSuccursale;
+    }
+
+    //Avec id pour aller le chercher
+    public Compte(int idCompte, String description, double solde, String type, String institution, int numCompte, int numSuccursale) {
+        this.idCompte = idCompte;
         this.description = description;
         this.solde = solde;
         this.type = type;
@@ -25,6 +38,14 @@ public class Compte {
     }
 
     //Getter + Setters
+    public int getIdCompte() {
+        return idCompte;
+    }
+
+    public void setIdCompte(int idCompte) {
+        this.idCompte = idCompte;
+    }
+
     public String getDescription() {
         return description;
     }
