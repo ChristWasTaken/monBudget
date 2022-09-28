@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +43,8 @@ public class Comptes extends AppCompatActivity{
         //Ajout du back button dans la bar de navigation
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        //Appel de la methode pour remplir la liste
+        afficherComptes(compteDBAdapter);
     }
 
     //Permet le back button sur la bar de navigation
@@ -58,17 +62,14 @@ public class Comptes extends AppCompatActivity{
         intent = getIntent();
         //Besoin du try catch si la bd est vide pour eviter le null pointer exception(crash de l'app)
         //todo ne marche pas soit trouver moyen pour arrenger ou ajouter bouton pour faire afficher
-
     }
 
     private void afficherComptes(CompteDBAdapter compteDBAdapter) {
         listComptes = compteDBAdapter.findAllComptes();
-        linearLayoutCompte.removeAllViews();
-        for(Compte c : listComptes) {
-            TextView textView = new TextView(this);
-            textView.setText(c.toString());
-            linearLayoutCompte.addView(textView);
-        }
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewCompte);
+        ComptesRVAdapter adapter = new ComptesRVAdapter(this, listComptes);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void onAjouterCompte(View view) {
