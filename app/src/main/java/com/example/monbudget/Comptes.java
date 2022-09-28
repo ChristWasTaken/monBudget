@@ -33,6 +33,7 @@ public class Comptes extends AppCompatActivity{
     private List<Compte> listComptes;
     private Intent intent;
     private String[] types = {"Positif", "Negatif"};
+    private TextView lblSoldeTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,7 @@ public class Comptes extends AppCompatActivity{
 
     private void setWidget() {
         intent = getIntent();
-        //Besoin du try catch si la bd est vide pour eviter le null pointer exception(crash de l'app)
-        //todo ne marche pas soit trouver moyen pour arrenger ou ajouter bouton pour faire afficher
+        lblSoldeTotal = findViewById(R.id.lblSoldeTotal);
     }
 
     private void afficherComptes(CompteDBAdapter compteDBAdapter) {
@@ -70,6 +70,21 @@ public class Comptes extends AppCompatActivity{
         ComptesRVAdapter adapter = new ComptesRVAdapter(this, listComptes);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        lblSoldeTotal.setText(String.valueOf(calculerTotalComptes()) + "$");
+    }
+
+    private double calculerTotalComptes(){
+        double positif = 0;
+        double negatif = 0;
+        for(Compte compte : listComptes){
+            String type = compte.getType();
+            if(type.equals("Positif")){
+                positif += compte.getSolde();
+            }else{
+                negatif += compte.getSolde();
+            }
+        }
+        return (positif - negatif);
     }
 
     public void onAjouterCompte(View view) {
@@ -130,4 +145,97 @@ public class Comptes extends AppCompatActivity{
         builder.show();
     }
 
+    public void openDialogueUpdateCompte(int position) {
+        //Preparer une vue
+        LayoutInflater inflater = LayoutInflater.from(Comptes.this);
+        View subView = inflater.inflate(R.layout.dialogue_comptes_ajout, null);
+        EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescription);
+        EditText txtSolde = (EditText) subView.findViewById(R.id.txtSolde);
+        EditText txtInstitution = (EditText) subView.findViewById(R.id.txtInstitution);
+        EditText txtNumCompte = (EditText) subView.findViewById(R.id.txtNumCompte);
+        EditText txtNumSuccursale = (EditText) subView.findViewById(R.id.txtNumSuccursale);
+
+        //Spinner pour dropdown
+        Spinner spinnerCompte = (Spinner) subView.findViewById(R.id.spinnerTypeCompte);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, types);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompte.setAdapter(arrayAdapter);
+        int positionSpinner;
+        String valueSpinner = listComptes.get(position).getType();
+        if(valueSpinner.equals("Positif")){
+            positionSpinner = 0;
+        }else{
+            positionSpinner = 1;
+        }
+
+        //Set le text de chaque champs
+        txtDescription.setText(listComptes.get(position).getDescription());
+        txtSolde.setText(String.valueOf(listComptes.get(position).getSolde()));
+        txtInstitution.setText(listComptes.get(position).getInstitution());
+        txtNumCompte.setText(String.valueOf(listComptes.get(position).getNumCompte()));
+        txtNumSuccursale.setText(String.valueOf(listComptes.get(position).getNumSuccursale()));
+        spinnerCompte.setSelection(positionSpinner);
+
+        //Construire l'alerte avec la vue
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Modifier un compte");
+        builder.setView(subView);
+        AlertDialog alertDialog = builder.create();
+        //Ajouter les btns de l'alerte
+        builder.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                try {
+                    //Creer un objet compte
+                    Compte compte = new Compte();
+                    compte.setIdCompte(listComptes.get(position).getIdCompte());
+                    compte.setDescription(txtDescription.getText().toString());
+                    compte.setSolde(Double.parseDouble(txtSolde.getText().toString()));
+                    int positionSpinner = spinnerCompte.getSelectedItemPosition();
+                    compte.setType(types[positionSpinner]);
+                    compte.setInstitution(txtInstitution.getText().toString());
+                    compte.setNumCompte(Integer.parseInt(txtNumCompte.getText().toString()));
+                    compte.setNumSuccursale(Integer.parseInt(txtNumSuccursale.getText().toString()));
+                    //Updater l'objet
+                    compteDBAdapter.updateCompte(compte);
+                    compteDBAdapter.close();
+                    afficherComptes(compteDBAdapter);
+                    //Afficher un toast success!
+                    Toast.makeText(Comptes.this, "Modification Reussite", Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(Comptes.this, "Annuler", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void openDialogueDeleteCompte(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Comptes.this);
+        builder.setTitle("Alert!");
+        builder.setMessage("Voulez-vous vraiment supprimer le compte " + listComptes.get(position).getDescription() + "?");
+        builder.setCancelable(false);
+        // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            Compte compte = compteDBAdapter.trouverCompteParId(listComptes.get(position).getIdCompte());
+            compteDBAdapter.deleteCompte(compte);
+            Toast.makeText(Comptes.this, "Compte supprimer", Toast.LENGTH_LONG).show();
+            afficherComptes(compteDBAdapter);
+        });
+
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            Toast.makeText(Comptes.this, "Annuler", Toast.LENGTH_LONG).show();
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }

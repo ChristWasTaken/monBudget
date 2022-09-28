@@ -1,14 +1,20 @@
 package com.example.monbudget;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -30,7 +36,7 @@ public class ComptesRVAdapter extends RecyclerView.Adapter<ComptesRVAdapter.MyVi
         //Inflate le layout
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.comptes_row, parent, false);
-        return new ComptesRVAdapter.MyViewHolder(view);
+        return new ComptesRVAdapter.MyViewHolder(view, context);
     }
 
     @Override
@@ -53,26 +59,28 @@ public class ComptesRVAdapter extends RecyclerView.Adapter<ComptesRVAdapter.MyVi
         //Attribut du row
         TextView lblDescription, lblSolde;
         ImageButton btnEdit, btnDelete;
+        Context context;
 
         
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
+            this.context = context;
             setWidget();
             setListeners();
         }
 
         private void setListeners() {
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((Comptes) context).openDialogueUpdateCompte(getAdapterPosition());
+                }
+            });
 
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((Comptes) context).openDialogueDeleteCompte(getAdapterPosition());
                 }
             });
         }
