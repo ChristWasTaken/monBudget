@@ -11,16 +11,16 @@ public class Revenue {
     private String type;
     private int frequence;
     private LocalDate date;
-    private Compte compte;
+    private int idCompte;
 
     //Constructeurs
-    public Revenue(String description, double montant, String type, int frequence, LocalDate date, Compte compte) {
+    public Revenue(String description, double montant, String type, int frequence, LocalDate date, int idCompte) {
         this.description = description;
         this.montant = montant;
         this.type = type;
         this.frequence = frequence;
         this.date = date;
-        this.compte = compte;
+        this.idCompte = idCompte;
     }
 
     public Revenue() {
@@ -67,15 +67,16 @@ public class Revenue {
         this.date = date;
     }
 
-    public Compte getCompte() {
-        return compte;
+    public int getIdCompte() {
+        return idCompte;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setIdCompte(int idCompte) {
+        this.idCompte = idCompte;
     }
 
     //To-String
+
     @Override
     public String toString() {
         return "Revenue{" +
@@ -84,6 +85,7 @@ public class Revenue {
                 ", type='" + type + '\'' +
                 ", frequence=" + frequence +
                 ", date=" + date +
+                ", idCompte=" + idCompte +
                 '}';
     }
 }

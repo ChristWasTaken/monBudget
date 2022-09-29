@@ -11,16 +11,15 @@ public class DepenseVariable {
     private String categorie;
     private String sousCategorie;
     private LocalDate date;
-    private Compte compte;
-
+    private int idCompte;
     //Constructeurs
-    public DepenseVariable(String description, double montant, String categorie, String sousCategorie, LocalDate date, Compte compte) {
+    public DepenseVariable(String description, double montant, String categorie, String sousCategorie, LocalDate date, int idCompte) {
         this.description = description;
         this.montant = montant;
         this.categorie = categorie;
         this.sousCategorie = sousCategorie;
         this.date = date;
-        this.compte = compte;
+        this.idCompte = idCompte;
     }
 
     public DepenseVariable() {
@@ -67,15 +66,16 @@ public class DepenseVariable {
         this.date = date;
     }
 
-    public Compte getCompte() {
-        return compte;
+    public int getIdCompte() {
+        return idCompte;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setIdCompte(int idCompte) {
+        this.idCompte = idCompte;
     }
 
     //To-String
+
     @Override
     public String toString() {
         return "DepenseVariable{" +
@@ -84,6 +84,7 @@ public class DepenseVariable {
                 ", categorie='" + categorie + '\'' +
                 ", sousCategorie='" + sousCategorie + '\'' +
                 ", date=" + date +
+                ", idCompte=" + idCompte +
                 '}';
     }
 }

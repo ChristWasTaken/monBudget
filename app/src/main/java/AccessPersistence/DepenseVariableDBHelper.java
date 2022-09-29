@@ -20,11 +20,12 @@ public class DepenseVariableDBHelper extends SQLiteOpenHelper {
     public static final String COL_CATEGORIE = "categorie";
     public static final String COL_SOUSCATEGORIE = "sousCategorie";
     public static final String COL_DATE = "date";
+    public static final String COL_IDCOMPTE = "idCompte";
 
     //DDL table
     public static final String CREATE_TABLE_DEPENSEVARIABLE = "create table " + TABLE_DEPENSEVARIABLE + " (" + COL_ID +
             " integer primary key autoincrement, " + COL_DESCRIPTION + " text, " + COL_MONTANT + " real, "
-            + COL_CATEGORIE + " text, " + COL_SOUSCATEGORIE + " text, " + COL_DATE + " date)";
+            + COL_CATEGORIE + " text, " + COL_SOUSCATEGORIE + " text, " + COL_DATE + " date, " + COL_IDCOMPTE + " integer);";
 
     public DepenseVariableDBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
