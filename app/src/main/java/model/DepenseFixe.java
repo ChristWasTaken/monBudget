@@ -12,15 +12,17 @@ public class DepenseFixe {
     private String sousCategorie;
     private int frequence;
     private LocalDate date;
+    private Compte compte;
 
     //Constructeurs
-    public DepenseFixe(String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date) {
+    public DepenseFixe(String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date, Compte compte) {
         this.description = description;
         this.montant = montant;
         this.categorie = categorie;
         this.sousCategorie = sousCategorie;
         this.frequence = frequence;
         this.date = date;
+        this.compte = compte;
     }
 
     public DepenseFixe() {
@@ -73,6 +75,14 @@ public class DepenseFixe {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     //To-String

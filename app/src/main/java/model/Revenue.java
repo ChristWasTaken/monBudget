@@ -11,14 +11,16 @@ public class Revenue {
     private String type;
     private int frequence;
     private LocalDate date;
+    private Compte compte;
 
     //Constructeurs
-    public Revenue(String description, double montant, String type, int frequence, LocalDate date) {
+    public Revenue(String description, double montant, String type, int frequence, LocalDate date, Compte compte) {
         this.description = description;
         this.montant = montant;
         this.type = type;
         this.frequence = frequence;
         this.date = date;
+        this.compte = compte;
     }
 
     public Revenue() {
@@ -63,6 +65,14 @@ public class Revenue {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     //To-String

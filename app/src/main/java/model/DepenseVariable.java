@@ -11,14 +11,16 @@ public class DepenseVariable {
     private String categorie;
     private String sousCategorie;
     private LocalDate date;
+    private Compte compte;
 
     //Constructeurs
-    public DepenseVariable(String description, double montant, String categorie, String sousCategorie, LocalDate date) {
+    public DepenseVariable(String description, double montant, String categorie, String sousCategorie, LocalDate date, Compte compte) {
         this.description = description;
         this.montant = montant;
         this.categorie = categorie;
         this.sousCategorie = sousCategorie;
         this.date = date;
+        this.compte = compte;
     }
 
     public DepenseVariable() {
@@ -63,6 +65,14 @@ public class DepenseVariable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     //To-String
