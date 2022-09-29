@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">monBudget</string>
+    <string name="bar_de_progression_venir">bar de progression à venir</string>
+    <string name="bla_bla_chaching">bla bla chaching</string>
 </resources>
