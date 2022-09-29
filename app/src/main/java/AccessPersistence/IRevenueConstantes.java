@@ -22,12 +22,12 @@ public interface IRevenueConstantes {
 
     //DDL table
     String CREATE_TABLE_REVENUE = "create table " + TABLE_REVENUE + " ("
-            + COL_ID + " integer primary key autoincrement, "
-            + COL_DESCRIPTION + " text, "
-            + COL_MONTANT + " real, "
-            + COL_TYPE + " text, "
-            + COL_FREQUENCE + " integer, "
-            + COL_DATE + " text, "
-            + COL_IDCOMPTE + " integer"
-            + ")";
+        + COL_ID + " integer primary key autoincrement, "
+        + COL_DESCRIPTION + " text, "
+        + COL_MONTANT + " real, "
+        + COL_TYPE + " text, "
+        + COL_FREQUENCE + " integer, "
+        + COL_DATE + " text, "
+        + COL_IDCOMPTE + " integer"
+        + ")";
 }
