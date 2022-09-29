@@ -16,6 +16,7 @@ public class CommonDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(ICompteConstantes.CREATE_TABLE_COMPTE);
         sqLiteDatabase.execSQL(IDepenseFixeConstantes.CREATE_TABLE_DEPENSEFIXE);
         sqLiteDatabase.execSQL(IDepenseVariableConstantes.CREATE_TABLE_DEPENSEVARIABLE);
+        sqLiteDatabase.execSQL(IRevenueConstantes.CREATE_TABLE_REVENUE);
     }
 
     @Override

@@ -18,12 +18,19 @@ public interface IDepenseVariableConstantes {
     static final String COL_DATE = "date";
     static final String COL_IDCOMPTE = "idCompte";
 
+    // Tableau des colonnes pour Select *
     static final String[] COLONNES = {COL_ID, COL_DESCRIPTION, COL_MONTANT,
             COL_CATEGORIE, COL_SOUSCATEGORIE, COL_DATE, COL_IDCOMPTE};
 
 
     //DDL table
-    static final String CREATE_TABLE_DEPENSEVARIABLE = "create table " + TABLE_DEPENSEVARIABLE + " (" + COL_ID +
-            " integer primary key autoincrement, " + COL_DESCRIPTION + " text, " + COL_MONTANT + " real, "
-            + COL_CATEGORIE + " text, " + COL_SOUSCATEGORIE + " text, " + COL_DATE + " date, " + COL_IDCOMPTE + " integer);";
+    static final String CREATE_TABLE_DEPENSEVARIABLE = "create table " + TABLE_DEPENSEVARIABLE + " ("
+            + COL_ID + " integer primary key autoincrement, "
+            + COL_DESCRIPTION + " text, "
+            + COL_MONTANT + " real, "
+            + COL_CATEGORIE + " text, "
+            + COL_SOUSCATEGORIE + " text, "
+            + COL_DATE + " date, "
+            + COL_IDCOMPTE + " integer"
+            + ");";
 }

@@ -18,12 +18,18 @@ public interface ICompteConstantes {
     static final String COL_NUMCOMPTE = "numCompte";
     static final String COL_NUMSUCCURSALE = "numSuccursale";
 
+    // Tableau des colonnes pour Select *
     static final String[] COLONNES = {COL_ID, COL_DESCRIPTION, COL_SOLDE,
             COL_TYPE, COL_INSTITUTION, COL_NUMCOMPTE, COL_NUMSUCCURSALE};
 
     //DDL table
-    static final String CREATE_TABLE_COMPTE = "create table " + TABLE_COMPTE + " (" + COL_ID +
-            " integer primary key autoincrement, " + COL_DESCRIPTION + " text, " + COL_SOLDE + " real, "
-            + COL_TYPE + " text, " + COL_INSTITUTION + " text, " + COL_NUMCOMPTE + " integer, " + COL_NUMSUCCURSALE
-            + " integer)";
+    static final String CREATE_TABLE_COMPTE = "create table " + TABLE_COMPTE + " ("
+            + COL_ID + " integer primary key autoincrement, "
+            + COL_DESCRIPTION + " text, "
+            + COL_SOLDE + " real, "
+            + COL_TYPE + " text, "
+            + COL_INSTITUTION + " text, "
+            + COL_NUMCOMPTE + " integer, "
+            + COL_NUMSUCCURSALE + " integer"
+            + ")";
 }

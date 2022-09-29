@@ -36,20 +36,102 @@ public class CompteDBAdapter {
 
     //Methode create
     public boolean ajouterCompte(Compte compte){
-        boolean result = false;
+        boolean resultat = false;
         try{
             open();
 
             ContentValues contentValues = getContentValuesCompte(compte);
 
-            db.insert(ICompteConstantes.TABLE_COMPTE, null, contentValues);
-            Toast.makeText(context, "Ajout Reussi", Toast.LENGTH_LONG).show();
-
-            result = true;
+            if(db.insert(ICompteConstantes.TABLE_COMPTE, null, contentValues) != -1){
+                Toast.makeText(context, "Ajout Compte Reussi", Toast.LENGTH_LONG).show();
+                resultat = true;
+            } else {
+                Toast.makeText(context, "Ajout Compte Echoué", Toast.LENGTH_LONG).show();
+            }
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        return result;
+        return resultat;
+    }
+
+    //Methode findAll
+    public List<Compte> findAllComptes(){
+        ArrayList<Compte> listComptes = new ArrayList<>();
+        try {
+            open();
+            Cursor cursor = db.query(ICompteConstantes.TABLE_COMPTE, ICompteConstantes.COLONNES,
+                    null, null, null, null, ICompteConstantes.COL_ID);
+            if(cursor.moveToFirst()){
+                while(!cursor.isAfterLast()){
+                    Compte compte = getCompteFromCursor(cursor);
+                    listComptes.add(compte);
+                    cursor.moveToNext();
+                }
+            }
+            return listComptes;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //Methode find
+    public Compte trouverCompteParId(int id){
+        try {
+            open();
+            Compte compte = new Compte();
+            Cursor cursor = db.query(ICompteConstantes.TABLE_COMPTE, ICompteConstantes.COLONNES,
+                    ICompteConstantes.COL_ID + " = " + id, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                compte = getCompteFromCursor(cursor);
+            }
+            return compte;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //Methode update
+    public boolean updateCompte(Compte compte){
+        try {
+            open();
+            ContentValues contentValues = getContentValuesCompte(compte);
+            db.update(ICompteConstantes.TABLE_COMPTE, contentValues, ICompteConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(compte.getIdCompte())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //Methode delete
+    public boolean deleteCompte(Compte compte){
+        try {
+            open();
+            db.delete(ICompteConstantes.TABLE_COMPTE, ICompteConstantes.COL_ID
+                    + " = ?", new String[]{String.valueOf(compte.getIdCompte())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @NonNull
+    private Compte getCompteFromCursor(Cursor cursor) {
+        Compte compte = new Compte();
+        compte.setIdCompte(cursor.getInt(0));
+        compte.setDescription(cursor.getString(1));
+        compte.setSolde(cursor.getDouble(2));
+        compte.setType(cursor.getString(3));
+        compte.setInstitution(cursor.getString(4));
+        compte.setNumCompte(cursor.getInt(5));
+        compte.setNumSuccursale(cursor.getInt(6));
+        return compte;
     }
 
     @NonNull
@@ -69,82 +151,5 @@ public class CompteDBAdapter {
         contentValues.put(ICompteConstantes.COL_NUMCOMPTE, numCompte);
         contentValues.put(ICompteConstantes.COL_NUMSUCCURSALE, numSuccursale);
         return contentValues;
-    }
-
-    //Methode findAll
-    public List<Compte> findAllComptes(){
-        ArrayList<Compte> listComptes = new ArrayList<>();
-        try {
-            open();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + ICompteConstantes.TABLE_COMPTE + " ORDER BY " + ICompteConstantes.COL_ID, null);
-            cursor.moveToFirst();
-            if(cursor.moveToFirst()){
-                while(!cursor.isAfterLast()){
-                    Compte compte = new Compte();
-                    compte.setIdCompte(cursor.getInt(0));
-                    compte.setDescription(cursor.getString(1));
-                    compte.setSolde(cursor.getDouble(2));
-                    compte.setType(cursor.getString(3));
-                    compte.setInstitution(cursor.getString(4));
-                    compte.setNumCompte(cursor.getInt(5));
-                    compte.setNumSuccursale(cursor.getInt(6));
-                    listComptes.add(compte);
-                    cursor.moveToNext();
-                }
-            }
-            return listComptes;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    //Methode find
-    public Compte trouverCompteParId(int id){
-        try {
-            open();
-            Compte compte = new Compte();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + ICompteConstantes.TABLE_COMPTE
-                    + " WHERE " + ICompteConstantes.COL_ID + " = " + id, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                compte.setIdCompte(cursor.getInt(0));
-                compte.setDescription(cursor.getString(1));
-                compte.setSolde(cursor.getDouble(2));
-                compte.setType(cursor.getString(3));
-                compte.setInstitution(cursor.getString(4));
-                compte.setNumCompte(cursor.getInt(5));
-                compte.setNumSuccursale(cursor.getInt(6));
-            }
-            return compte;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    //Methode update
-    public boolean updateCompte(Compte compte){
-        try {
-            open();
-            ContentValues contentValues = getContentValuesCompte(compte);
-            db.update(ICompteConstantes.TABLE_COMPTE, contentValues, ICompteConstantes.COL_ID + " = ?", new String[] {String.valueOf(compte.getIdCompte())});
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    //Methode delete
-    public boolean deleteCompte(Compte compte){
-        try {
-            open();
-            db.delete(ICompteConstantes.TABLE_COMPTE, ICompteConstantes.COL_ID + " = ?", new String[]{String.valueOf(compte.getIdCompte())});
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
     }
 }

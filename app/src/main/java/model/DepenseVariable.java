@@ -6,14 +6,28 @@ public class DepenseVariable {
     //Class pojo pour bd
 
     //Attributs
+    private int idDepenseVariable;
     private String description;
     private double montant;
     private String categorie;
     private String sousCategorie;
     private LocalDate date;
     private int idCompte;
+
     //Constructeurs
+    //Sans id pour l'ajout dans la base de donnee (auto-increment)
     public DepenseVariable(String description, double montant, String categorie, String sousCategorie, LocalDate date, int idCompte) {
+        this.description = description;
+        this.montant = montant;
+        this.categorie = categorie;
+        this.sousCategorie = sousCategorie;
+        this.date = date;
+        this.idCompte = idCompte;
+    }
+
+    //Avec id pour aller le chercher
+    public DepenseVariable(int idDepenseVariable, String description, double montant, String categorie, String sousCategorie, LocalDate date, int idCompte) {
+        this.idDepenseVariable = idDepenseVariable;
         this.description = description;
         this.montant = montant;
         this.categorie = categorie;
@@ -72,6 +86,14 @@ public class DepenseVariable {
 
     public void setIdCompte(int idCompte) {
         this.idCompte = idCompte;
+    }
+
+    public int getIdDepenseVariable() {
+        return idDepenseVariable;
+    }
+
+    public void setIdDepenseVariable(int idDepenseVariable) {
+        this.idDepenseVariable = idDepenseVariable;
     }
 
     //To-String

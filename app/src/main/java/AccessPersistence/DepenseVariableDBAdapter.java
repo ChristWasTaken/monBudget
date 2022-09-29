@@ -37,20 +37,45 @@ public class DepenseVariableDBAdapter {
 
     //Methode create
     public boolean ajouterDepenseVariable(DepenseVariable depenseVariable) {
+        boolean resultat = false;
         try {
             open();
 
             ContentValues contentValues = getContentValuesDepenseVariable(depenseVariable);
             if(db.insert(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, null, contentValues) != -1) {
-                Toast.makeText(context, "Ajout Reussi", Toast.LENGTH_LONG).show();
-                return true;
+                Toast.makeText(context, "Ajout Dépense variable Reussi", Toast.LENGTH_LONG).show();
+                resultat = true;
+            } else {
+                Toast.makeText(context, "Ajout Dépense variable Echoué", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(context, "Erreur lors de l'ajout", Toast.LENGTH_LONG).show();
-        return false;
+        return resultat;
+    }
+
+    //Methode findAll
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<DepenseVariable> findAll() {
+        List<DepenseVariable> depenseVariableList = new ArrayList<>();
+        try {
+            open();
+            Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COLONNES,
+                    null, null, null, null, IDepenseFixeConstantes.COL_DATE);
+
+            if (cursor.moveToFirst()) {
+                while(cursor.moveToNext()) {
+                    DepenseVariable depenseVariable = getDepenseVariableFromCursor(cursor);
+                    depenseVariableList.add(depenseVariable);
+                }
+            }
+            return depenseVariableList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return depenseVariableList;
     }
 
     private ContentValues getContentValuesDepenseVariable(DepenseVariable depenseVariable) {
@@ -71,32 +96,17 @@ public class DepenseVariableDBAdapter {
         return contentValues;
     }
 
-    //Methode findAll
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<DepenseVariable> findAll() {
-        List<DepenseVariable> depenseVariableList = new ArrayList<>();
-        try {
-            open();
-            Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE,
-                    IDepenseVariableConstantes.COLONNES, null, null,
-                    null, null, IDepenseFixeConstantes.COL_DATE);
-            if (cursor.moveToFirst()) {
-                do {
-                    DepenseVariable depenseVariable = new DepenseVariable();
-                    depenseVariable.setIdCompte(cursor.getInt(0));
-                    depenseVariable.setDescription(cursor.getString(1));
-                    depenseVariable.setMontant(cursor.getDouble(2));
-                    depenseVariable.setCategorie(cursor.getString(3));
-                    depenseVariable.setSousCategorie(cursor.getString(4));
-                    depenseVariable.setDate(LocalDate.parse(cursor.getString(5)));
-                    depenseVariable.setIdCompte(cursor.getInt(6));
-                    depenseVariableList.add(depenseVariable);
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return depenseVariableList;
+    private DepenseVariable getDepenseVariableFromCursor(Cursor cursor) {
+        DepenseVariable depenseVariable = new DepenseVariable();
+        depenseVariable.setIdDepenseVariable(cursor.getInt(0));
+        depenseVariable.setDescription(cursor.getString(1));
+        depenseVariable.setMontant(cursor.getDouble(2));
+        depenseVariable.setCategorie(cursor.getString(3));
+        depenseVariable.setSousCategorie(cursor.getString(4));
+        depenseVariable.setDate(LocalDate.parse(cursor.getString(5)));
+        depenseVariable.setIdCompte(cursor.getInt(6));
+        return depenseVariable;
     }
 
 }

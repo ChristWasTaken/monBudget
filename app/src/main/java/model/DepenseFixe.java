@@ -16,6 +16,7 @@ public class DepenseFixe {
     private int idCompte;
 
     //Constructeurs
+    //Sans id pour l'ajout dans la base de donnee (auto-increment)
     public DepenseFixe(String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date, int idCompte) {
         this.description = description;
         this.montant = montant;
@@ -26,6 +27,7 @@ public class DepenseFixe {
         this.idCompte = idCompte;
     }
 
+    // Avec id pour aller le chercher
     public DepenseFixe(int idDepenseFixe, String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date, int idCompte) {
         this.idDepenseFixe = idDepenseFixe;
         this.description = description;
