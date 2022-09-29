@@ -18,16 +18,16 @@ import model.Compte;
  */
 public class CompteDBAdapter {
     private SQLiteDatabase db;
-    private CompteDBHelper compteDBHelper;
+    private CommonDBHelper dbHelper;
     private Context context;
 
     public CompteDBAdapter(Context context){
         this.context = context;
-        this.compteDBHelper = new CompteDBHelper(context, CompteDBHelper.BD_NOM, null, CompteDBHelper.VERSION);
+        this.dbHelper = new CommonDBHelper(context, ICompteConstantes.BD_NOM, null, ICompteConstantes.VERSION);
     }
 
     public void open(){
-        db = compteDBHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
     }
 
     public void close(){
@@ -42,7 +42,7 @@ public class CompteDBAdapter {
 
             ContentValues contentValues = getContentValuesCompte(compte);
 
-            db.insert(CompteDBHelper.TABLE_COMPTE, null, contentValues);
+            db.insert(ICompteConstantes.TABLE_COMPTE, null, contentValues);
             Toast.makeText(context, "Ajout Reussi", Toast.LENGTH_LONG).show();
 
             result = true;
@@ -62,12 +62,12 @@ public class CompteDBAdapter {
         int numSuccursale = compte.getNumSuccursale();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CompteDBHelper.COL_DESCRIPTION, description);
-        contentValues.put(CompteDBHelper.COL_SOLDE, solde);
-        contentValues.put(CompteDBHelper.COL_TYPE, type);
-        contentValues.put(CompteDBHelper.COL_INSTITUTION, institution);
-        contentValues.put(CompteDBHelper.COL_NUMCOMPTE, numCompte);
-        contentValues.put(CompteDBHelper.COL_NUMSUCCURSALE, numSuccursale);
+        contentValues.put(ICompteConstantes.COL_DESCRIPTION, description);
+        contentValues.put(ICompteConstantes.COL_SOLDE, solde);
+        contentValues.put(ICompteConstantes.COL_TYPE, type);
+        contentValues.put(ICompteConstantes.COL_INSTITUTION, institution);
+        contentValues.put(ICompteConstantes.COL_NUMCOMPTE, numCompte);
+        contentValues.put(ICompteConstantes.COL_NUMSUCCURSALE, numSuccursale);
         return contentValues;
     }
 
@@ -76,7 +76,7 @@ public class CompteDBAdapter {
         ArrayList<Compte> listComptes = new ArrayList<>();
         try {
             open();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + CompteDBHelper.TABLE_COMPTE + " ORDER BY " + CompteDBHelper.COL_ID, null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + ICompteConstantes.TABLE_COMPTE + " ORDER BY " + ICompteConstantes.COL_ID, null);
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
                 while(!cursor.isAfterLast()){
@@ -104,7 +104,8 @@ public class CompteDBAdapter {
         try {
             open();
             Compte compte = new Compte();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + CompteDBHelper.TABLE_COMPTE + " WHERE " + CompteDBHelper.COL_ID + " = " + String.valueOf(id), null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + ICompteConstantes.TABLE_COMPTE
+                    + " WHERE " + ICompteConstantes.COL_ID + " = " + id, null);
             if (cursor != null) {
                 cursor.moveToFirst();
                 compte.setIdCompte(cursor.getInt(0));
@@ -127,7 +128,7 @@ public class CompteDBAdapter {
         try {
             open();
             ContentValues contentValues = getContentValuesCompte(compte);
-            db.update(CompteDBHelper.TABLE_COMPTE, contentValues, CompteDBHelper.COL_ID + " = ?", new String[] {String.valueOf(compte.getIdCompte())});
+            db.update(ICompteConstantes.TABLE_COMPTE, contentValues, ICompteConstantes.COL_ID + " = ?", new String[] {String.valueOf(compte.getIdCompte())});
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -139,7 +140,7 @@ public class CompteDBAdapter {
     public boolean deleteCompte(Compte compte){
         try {
             open();
-            db.delete(CompteDBHelper.TABLE_COMPTE, CompteDBHelper.COL_ID + " = ?", new String[]{String.valueOf(compte.getIdCompte())});
+            db.delete(ICompteConstantes.TABLE_COMPTE, ICompteConstantes.COL_ID + " = ?", new String[]{String.valueOf(compte.getIdCompte())});
             return true;
         }catch (Exception e){
             e.printStackTrace();

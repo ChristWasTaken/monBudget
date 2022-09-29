@@ -6,6 +6,7 @@ public class DepenseFixe {
     //Class pojo pour bd
 
     //Attributs
+    private int idDepenseFixe;
     private String description;
     private double montant;
     private String categorie;
@@ -16,6 +17,17 @@ public class DepenseFixe {
 
     //Constructeurs
     public DepenseFixe(String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date, int idCompte) {
+        this.description = description;
+        this.montant = montant;
+        this.categorie = categorie;
+        this.sousCategorie = sousCategorie;
+        this.frequence = frequence;
+        this.date = date;
+        this.idCompte = idCompte;
+    }
+
+    public DepenseFixe(int idDepenseFixe, String description, double montant, String categorie, String sousCategorie, int frequence, LocalDate date, int idCompte) {
+        this.idDepenseFixe = idDepenseFixe;
         this.description = description;
         this.montant = montant;
         this.categorie = categorie;
@@ -83,6 +95,14 @@ public class DepenseFixe {
 
     public void setIdCompte(int idCompte) {
         this.idCompte = idCompte;
+    }
+
+    public int getIdDepenseFixe() {
+        return idDepenseFixe;
+    }
+
+    public void setIdDepenseFixe(int idDepenseFixe) {
+        this.idDepenseFixe = idDepenseFixe;
     }
 
     //To-String
