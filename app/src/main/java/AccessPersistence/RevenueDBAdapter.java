@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.monbudget.Revenues;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,7 @@ public class RevenueDBAdapter {
         try{
             open();
             Cursor cursor = db.query(IRevenueConstantes.TABLE_REVENUE, IRevenueConstantes.COLONNES,
-                    null, null, null, null, IRevenueConstantes.COL_DATE);
+                    null, null, null, null, null);
             if(cursor.moveToFirst()){
                 while(cursor.moveToNext()){
                     Revenue revenue = getRevenueFromCursor(cursor);
@@ -73,6 +75,49 @@ public class RevenueDBAdapter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Revenue trouverRevenueParId(int id){
+        try {
+            open();
+            Revenue revenue = new Revenue();
+            Cursor cursor = db.query(IRevenueConstantes.TABLE_REVENUE, IRevenueConstantes.COLONNES,
+                    IRevenueConstantes.COL_ID + " = " + id, null, null, null, IRevenueConstantes.COL_DATE);
+            if(cursor != null){
+                cursor.moveToFirst();
+                revenue = getRevenueFromCursor(cursor);
+            }
+            return revenue;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean deleteRevenue(Revenue revenue){
+        try{
+            open();
+            db.delete(IRevenueConstantes.TABLE_REVENUE, IRevenueConstantes.COL_ID
+            + " = ?", new String[]{String.valueOf(revenue.getIdRevenue())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateRevenue(Revenue revenue){
+        try{
+            open();
+            ContentValues contentValues = getContentValuesRevenue(revenue);
+            db.update(IRevenueConstantes.TABLE_REVENUE, contentValues, IRevenueConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(revenue.getIdRevenue())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private ContentValues getContentValuesRevenue(Revenue revenue) {
@@ -97,12 +142,13 @@ public class RevenueDBAdapter {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private Revenue getRevenueFromCursor(Cursor cursor) {
         Revenue revenue = new Revenue();
-        revenue.setIdCompte(cursor.getInt(0));
+        revenue.setIdRevenue(cursor.getInt(0));
         revenue.setDescription(cursor.getString(1));
         revenue.setMontant(cursor.getDouble(2));
         revenue.setType(cursor.getString(3));
         revenue.setFrequence(cursor.getInt(4));
         revenue.setDate(LocalDate.parse(cursor.getString(5)));
+        revenue.setIdCompte(cursor.getInt(6));
         return revenue;
     }
 }

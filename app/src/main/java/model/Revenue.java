@@ -6,6 +6,7 @@ public class Revenue {
     //Class pojo pour bd
 
     //Attributs
+    private int idRevenue;
     private String description;
     private double montant;
     private String type;
@@ -27,6 +28,15 @@ public class Revenue {
     }
 
     //Getter + Setters
+
+    public int getIdRevenue() {
+        return idRevenue;
+    }
+
+    public void setIdRevenue(int idRevenue) {
+        this.idRevenue = idRevenue;
+    }
+
     public String getDescription() {
         return description;
     }

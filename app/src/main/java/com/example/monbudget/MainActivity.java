@@ -10,8 +10,7 @@ import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Intent intentComptes;
-    private Intent intentBilanActivity;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +23,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMesComptes(View view) {
-        intentComptes = new Intent(MainActivity.this, Comptes.class);
-        startActivity(intentComptes);
+        intent = new Intent(MainActivity.this, Comptes.class);
+        startActivity(intent);
     }
 
     public void onBilan(View view) {
-        intentBilanActivity = new Intent(MainActivity.this, BilanActivity.class);
-        startActivity(intentBilanActivity);
+        intent = new Intent(MainActivity.this, BilanActivity.class);
+        startActivity(intent);
     }
 
+    public void onMesRevenues(View view) {
+        intent = new Intent(MainActivity.this, Revenues.class);
+        startActivity(intent);
+    }
 }

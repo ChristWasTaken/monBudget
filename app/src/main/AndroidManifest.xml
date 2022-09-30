@@ -17,6 +17,9 @@
             android:name=".BilanActivity"
             android:exported="false" />
         <activity
+            android:name=".Revenues"
+            android:exported="false" />
+        <activity
             android:name=".Comptes"
             android:exported="false" />
         <activity

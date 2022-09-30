@@ -1,11 +1,14 @@
 package com.example.monbudget;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -37,10 +40,23 @@ public class BilanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bilan);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         this.depenseFixeDBAdapter = new DepenseFixeDBAdapter(BilanActivity.this);
         this.depenseVariableDBAdapter = new DepenseVariableDBAdapter(BilanActivity.this);
         this.revenueDBAdapter = new RevenueDBAdapter(BilanActivity.this);
         setWidgets();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
