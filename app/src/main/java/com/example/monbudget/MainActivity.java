@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMesComptes(View view) {
-        intent = new Intent(MainActivity.this, Comptes.class);
+        intent = new Intent(MainActivity.this, ComptesActivity.class);
         startActivity(intent);
     }
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMesRevenues(View view) {
-        intent = new Intent(MainActivity.this, Revenues.class);
+        intent = new Intent(MainActivity.this, RevenuesActivity.class);
         startActivity(intent);
     }
 }

@@ -35,7 +35,7 @@ import AccessPersistence.RevenueDBAdapter;
 import model.Compte;
 import model.Revenue;
 
-public class Revenues extends AppCompatActivity {
+public class RevenuesActivity extends AppCompatActivity {
     private CompteDBAdapter compteDBAdapter;
     private RevenueDBAdapter revenueDBAdapter;
     private List<Compte> listComptes;
@@ -51,8 +51,8 @@ public class Revenues extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revenues);
-        this.compteDBAdapter = new CompteDBAdapter(Revenues.this);
-        this.revenueDBAdapter = new RevenueDBAdapter(Revenues.this);
+        this.compteDBAdapter = new CompteDBAdapter(RevenuesActivity.this);
+        this.revenueDBAdapter = new RevenueDBAdapter(RevenuesActivity.this);
         listComptes = compteDBAdapter.findAllComptes();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -90,7 +90,7 @@ public class Revenues extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void openDialogueAjouterRevenue() {
-        LayoutInflater inflater = LayoutInflater.from(Revenues.this);
+        LayoutInflater inflater = LayoutInflater.from(RevenuesActivity.this);
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
@@ -107,7 +107,7 @@ public class Revenues extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(Revenues.this,
+                DatePickerDialog dialog = new DatePickerDialog(RevenuesActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         onDateSetListener,
                         year, month, day);
@@ -177,7 +177,7 @@ public class Revenues extends AppCompatActivity {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(Revenues.this, "Annuler", Toast.LENGTH_LONG).show();
+                Toast.makeText(RevenuesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -204,7 +204,7 @@ public class Revenues extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void openDialogueUpdateRevenue(int position) {
-        LayoutInflater inflater = LayoutInflater.from(Revenues.this);
+        LayoutInflater inflater = LayoutInflater.from(RevenuesActivity.this);
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
@@ -228,7 +228,7 @@ public class Revenues extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(Revenues.this,
+                DatePickerDialog dialog = new DatePickerDialog(RevenuesActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         onDateSetListener,
                         year, month, day);
@@ -301,7 +301,7 @@ public class Revenues extends AppCompatActivity {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(Revenues.this, "Annuler", Toast.LENGTH_LONG).show();
+                Toast.makeText(RevenuesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -327,21 +327,21 @@ public class Revenues extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void openDialogueDeleteRevenue(int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Revenues.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(RevenuesActivity.this);
         builder.setTitle("Alert!");
         builder.setMessage("Voulez-vous vraiment supprimer le revenue " + listRevenues.get(position).getDescription() + "?");
         builder.setCancelable(false);
         // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
             Revenue revenue = revenueDBAdapter.trouverRevenueParId(listRevenues.get(position).getIdRevenue());
-            Toast.makeText(Revenues.this, "Revenu supprimer", Toast.LENGTH_LONG).show();
+            Toast.makeText(RevenuesActivity.this, "Revenu supprimer", Toast.LENGTH_LONG).show();
             enleverSoldeCompte(revenue);
             revenueDBAdapter.deleteRevenue(revenue);
             afficherRevenues(revenueDBAdapter);
         });
 
         builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            Toast.makeText(Revenues.this, "Annuler", Toast.LENGTH_LONG).show();
+            Toast.makeText(RevenuesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             dialog.cancel();
         });
 

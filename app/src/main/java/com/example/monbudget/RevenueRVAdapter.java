@@ -62,14 +62,14 @@ public class RevenueRVAdapter extends RecyclerView.Adapter<RevenueRVAdapter.MyVi
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Revenues) context).openDialogueUpdateRevenue(getAdapterPosition());
+                    ((RevenuesActivity) context).openDialogueUpdateRevenue(getAdapterPosition());
                 }
             });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Revenues) context).openDialogueDeleteRevenue(getAdapterPosition());
+                    ((RevenuesActivity) context).openDialogueDeleteRevenue(getAdapterPosition());
                 }
             });
         }

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.DepenseFixe;
+import model.DepenseVariable;
 
 public class DepenseFixeDBAdapter {
 
@@ -77,6 +78,53 @@ public class DepenseFixeDBAdapter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //Methode find
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public DepenseFixe trouverDepenseFixeParId(int id){
+        try {
+            open();
+            DepenseFixe depenseFixe = new DepenseFixe();
+            Cursor cursor = db.query(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, IDepenseFixeConstantes.COLONNES,
+                    IDepenseFixeConstantes.COL_ID + " = " + id, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                depenseFixe = getDepenseFixeFromCursor(cursor);
+            }
+            return depenseFixe;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //Methode update
+    public boolean updateDepenseFixe(DepenseFixe depenseFixe){
+        try {
+            open();
+            ContentValues contentValues = getContentValuesDepenseFixe(depenseFixe);
+            db.update(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, contentValues, IDepenseFixeConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(depenseFixe.getIdDepenseFixe())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //Methode delete
+    public boolean deleteDepenseFixe(DepenseFixe depenseFixe){
+        try {
+            open();
+            db.delete(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, IDepenseFixeConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(depenseFixe.getIdDepenseFixe())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.monbudget.Revenues;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

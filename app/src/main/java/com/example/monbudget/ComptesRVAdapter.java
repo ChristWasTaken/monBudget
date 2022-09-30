@@ -1,20 +1,13 @@
 package com.example.monbudget;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -44,7 +37,6 @@ public class ComptesRVAdapter extends RecyclerView.Adapter<ComptesRVAdapter.MyVi
         //Ajouter les valeurs au views dans le comptes_row layout
         holder.lblDescription.setText(compteList.get(position).getDescription());
         holder.lblSolde.setText(String.valueOf(compteList.get(position).getSolde()));
-
     }
 
     @Override
@@ -73,14 +65,14 @@ public class ComptesRVAdapter extends RecyclerView.Adapter<ComptesRVAdapter.MyVi
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Comptes) context).openDialogueUpdateCompte(getAdapterPosition());
+                    ((ComptesActivity) context).openDialogueUpdateCompte(getAdapterPosition());
                 }
             });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Comptes) context).openDialogueDeleteCompte(getAdapterPosition());
+                    ((ComptesActivity) context).openDialogueDeleteCompte(getAdapterPosition());
                 }
             });
         }

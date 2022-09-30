@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Compte;
 import model.DepenseVariable;
 
 public class DepenseVariableDBAdapter {
@@ -76,6 +77,53 @@ public class DepenseVariableDBAdapter {
             e.printStackTrace();
         }
         return depenseVariableList;
+    }
+
+    //Methode find
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public DepenseVariable trouverDepenseVariableParId(int id){
+        try {
+            open();
+            DepenseVariable depenseVariable = new DepenseVariable();
+            Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COLONNES,
+                    IDepenseVariableConstantes.COL_ID + " = " + id, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                depenseVariable = getDepenseVariableFromCursor(cursor);
+            }
+            return depenseVariable;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //Methode update
+    public boolean updateDepenseVariable(DepenseVariable depenseVariable){
+        try {
+            open();
+            ContentValues contentValues = getContentValuesDepenseVariable(depenseVariable);
+            db.update(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, contentValues, IDepenseVariableConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(depenseVariable.getIdDepenseVariable())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //Methode delete
+    public boolean deleteDepenseVariable(DepenseVariable depenseVariable){
+        try {
+            open();
+            db.delete(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COL_ID
+                    + " = ?", new String[] {String.valueOf(depenseVariable.getIdDepenseVariable())});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private ContentValues getContentValuesDepenseVariable(DepenseVariable depenseVariable) {

@@ -13,11 +13,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +25,7 @@ import java.util.List;
 import AccessPersistence.CompteDBAdapter;
 import model.Compte;
 
-public class Comptes extends AppCompatActivity{
+public class ComptesActivity extends AppCompatActivity{
     private LinearLayout linearLayoutCompte;
     private CompteDBAdapter compteDBAdapter;
     private List<Compte> listComptes;
@@ -40,7 +38,7 @@ public class Comptes extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comptes);
         setWidget();
-        this.compteDBAdapter = new CompteDBAdapter(Comptes.this);
+        this.compteDBAdapter = new CompteDBAdapter(ComptesActivity.this);
         //Ajout du back button dans la bar de navigation
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -93,7 +91,7 @@ public class Comptes extends AppCompatActivity{
 
     private void openDialogueAjoutCompte() {
         //Preparer une vue
-        LayoutInflater inflater = LayoutInflater.from(Comptes.this);
+        LayoutInflater inflater = LayoutInflater.from(ComptesActivity.this);
         View subView = inflater.inflate(R.layout.dialogue_comptes_ajout, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescription);
         EditText txtSolde = (EditText) subView.findViewById(R.id.txtSolde);
@@ -138,7 +136,7 @@ public class Comptes extends AppCompatActivity{
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(Comptes.this, "Annuler", Toast.LENGTH_LONG).show();
+                Toast.makeText(ComptesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -147,7 +145,7 @@ public class Comptes extends AppCompatActivity{
 
     public void openDialogueUpdateCompte(int position) {
         //Preparer une vue
-        LayoutInflater inflater = LayoutInflater.from(Comptes.this);
+        LayoutInflater inflater = LayoutInflater.from(ComptesActivity.this);
         View subView = inflater.inflate(R.layout.dialogue_comptes_ajout, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescription);
         EditText txtSolde = (EditText) subView.findViewById(R.id.txtSolde);
@@ -201,7 +199,7 @@ public class Comptes extends AppCompatActivity{
                     compteDBAdapter.close();
                     afficherComptes(compteDBAdapter);
                     //Afficher un toast success!
-                    Toast.makeText(Comptes.this, "Modification Reussite", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ComptesActivity.this, "Modification Reussite", Toast.LENGTH_LONG).show();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -210,7 +208,7 @@ public class Comptes extends AppCompatActivity{
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(Comptes.this, "Annuler", Toast.LENGTH_LONG).show();
+                Toast.makeText(ComptesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -218,7 +216,7 @@ public class Comptes extends AppCompatActivity{
     }
 
     public void openDialogueDeleteCompte(int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Comptes.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ComptesActivity.this);
         builder.setTitle("Alert!");
         builder.setMessage("Voulez-vous vraiment supprimer le compte " + listComptes.get(position).getDescription() + "?");
         builder.setCancelable(false);
@@ -226,12 +224,13 @@ public class Comptes extends AppCompatActivity{
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
             Compte compte = compteDBAdapter.trouverCompteParId(listComptes.get(position).getIdCompte());
             compteDBAdapter.deleteCompte(compte);
-            Toast.makeText(Comptes.this, "Compte supprimer", Toast.LENGTH_LONG).show();
+            compteDBAdapter.close();
+            Toast.makeText(ComptesActivity.this, "Compte supprimer", Toast.LENGTH_LONG).show();
             afficherComptes(compteDBAdapter);
         });
 
         builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            Toast.makeText(Comptes.this, "Annuler", Toast.LENGTH_LONG).show();
+            Toast.makeText(ComptesActivity.this, "Annuler", Toast.LENGTH_LONG).show();
             dialog.cancel();
         });
 
