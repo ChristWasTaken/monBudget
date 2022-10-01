@@ -66,9 +66,12 @@ public class DepenseVariableDBAdapter {
             Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COLONNES,
                     null, null, null, null, IDepenseFixeConstantes.COL_DATE);
 
-            if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            if (cursor != null && cursor.getCount() > 0) {
+                DepenseVariable depenseVariable = getDepenseVariableFromCursor(cursor);
+                depenseVariableList.add(depenseVariable);
                 while(cursor.moveToNext()) {
-                    DepenseVariable depenseVariable = getDepenseVariableFromCursor(cursor);
+                    depenseVariable = getDepenseVariableFromCursor(cursor);
                     depenseVariableList.add(depenseVariable);
                 }
             }

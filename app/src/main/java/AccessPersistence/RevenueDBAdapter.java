@@ -63,8 +63,10 @@ public class RevenueDBAdapter {
             Cursor cursor = db.query(IRevenueConstantes.TABLE_REVENUE, IRevenueConstantes.COLONNES,
                     null, null, null, null, null);
             if(cursor.moveToFirst()){
+                Revenue revenue = getRevenueFromCursor(cursor);
+                revenues.add(revenue);
                 while(cursor.moveToNext()){
-                    Revenue revenue = getRevenueFromCursor(cursor);
+                    revenue = getRevenueFromCursor(cursor);
                     revenues.add(revenue);
                 }
             }

@@ -68,6 +68,30 @@ public class DepenseFixeDBAdapter {
                     null, null, null, null, IDepenseFixeConstantes.COL_DATE);
 
             if (cursor.moveToFirst()) {
+                DepenseFixe depenseFixe = getDepenseFixeFromCursor(cursor);
+                depensesFixes.add(depenseFixe);
+                while (cursor.moveToNext()) {
+                    depenseFixe = getDepenseFixeFromCursor(cursor);
+                    depensesFixes.add(depenseFixe);
+                }
+            }
+            return depensesFixes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Méthode find pour les dépenses fixes par mois
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<DepenseFixe> findDepensesFixesParMois(int month) {
+        ArrayList<DepenseFixe> depensesFixes = new ArrayList<>();
+        try {
+            open();
+            Cursor cursor = db.query(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, IDepenseFixeConstantes.COLONNES,
+                    " WHERE STRFTIME('%m', " + IDepenseFixeConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseFixeConstantes.COL_DATE);
+
+            if (cursor.moveToFirst()) {
                 while (cursor.moveToNext()) {
                     DepenseFixe depenseFixe = getDepenseFixeFromCursor(cursor);
                     depensesFixes.add(depenseFixe);
