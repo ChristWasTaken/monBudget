@@ -94,6 +94,10 @@ public class Compte {
         this.numSuccursale = numSuccursale;
     }
 
+    public double calculerSoldesTotaux(double[] soldes) {
+        return 0;
+    }
+
     //To-String
     @Override
     public String toString() {
