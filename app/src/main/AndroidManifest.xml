@@ -14,12 +14,6 @@
         android:theme="@style/Theme.MonBudget"
         tools:targetApi="31">
         <activity
-            android:name=".DepenseVariableActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DepenseFixeActivity"
-            android:exported="false" />
-        <activity
             android:name=".DepensesActivity"
             android:exported="false" />
         <activity
