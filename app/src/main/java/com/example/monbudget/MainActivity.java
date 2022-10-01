@@ -39,4 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDepenses(View view) {
     }
+
+    public void onCalendrier(View view) {
+    }
 }
