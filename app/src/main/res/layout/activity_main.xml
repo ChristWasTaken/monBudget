@@ -13,64 +13,67 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/green_balance"
-        android:textColor="@color/light_grey"
         android:onClick="onMesRevenues"
         android:text="Mes Revenues"
+        android:textColor="@color/light_grey"
         app:layout_constraintBottom_toTopOf="@+id/btnDepenses"
         app:layout_constraintEnd_toStartOf="@+id/btnMesComptes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBilan" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnMesComptes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="80dp"
         android:background="@color/yellow"
-        android:textColor="@color/dark_grey"
+        android:drawableTop="@drawable/ic_account"
         android:onClick="onMesComptes"
+        android:paddingTop="80dp"
+        android:paddingBottom="60dp"
         android:text="Mes Comptes"
-        android:textCursorDrawable="@drawable/ic_account"
-        app:layout_constraintBottom_toTopOf="@+id/btnBilan"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintBottom_toTopOf="@+id/calendrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnDepenses"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBilan" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnBilan"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/blue"
-        android:textColor="@color/light_grey"
+        android:background="@color/green_bilan"
         android:onClick="onBilan"
         android:text="Mon Bilan"
-        app:layout_constraintBottom_toTopOf="@+id/calendrier"
+        android:textColor="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/btnRevenu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDepenses" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDepenses"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:background="@color/red_balance"
-        android:textColor="@color/light_grey"
         android:onClick="onDepenses"
         android:text="Mes Dépenses"
-        app:layout_constraintBottom_toTopOf="@+id/btnBilan"
+        android:textColor="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/calendrier"
         app:layout_constraintEnd_toStartOf="@+id/btnMesComptes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRevenu" />
@@ -81,13 +84,13 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/red_balance"
-        android:textColor="@color/light_grey"
+        android:layout_marginBottom="16dp"
+        android:background="@color/green_bilan"
         android:text="Calendrier mensuel des dépenses"
+        android:textColor="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBilan" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDepenses" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

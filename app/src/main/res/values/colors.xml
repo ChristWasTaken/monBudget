@@ -4,12 +4,11 @@
     <color name="grey">#B4BAAE</color>
     <color name="black">#000000</color>
     <color name="light_grey">#E8EAEA</color>
-    <color name="red_balance">#FF7043</color>
-    <color name="red_depenses">#FF8A65</color>
+    <color name="red_balance">#EF5350</color>
     <color name="dark_blue">#5C6BC0</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFEE58</color>
     <color name="green_balance">#66BB6A</color>
-    <color name="green_bilan">#81C784</color>
-    <color name="blue">#4DB6AC</color>
+    <color name="green_bilan">#5C6BC0</color>
+    <color name="blue">#40C4FF</color>
 </resources>

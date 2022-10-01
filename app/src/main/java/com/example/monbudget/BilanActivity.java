@@ -22,7 +22,6 @@ import java.util.List;
 
 import AccessPersistence.DepenseFixeDBAdapter;
 import AccessPersistence.DepenseVariableDBAdapter;
-import AccessPersistence.IDepenseFixeConstantes;
 import AccessPersistence.RevenueDBAdapter;
 import model.DepenseFixe;
 import model.DepenseVariable;
