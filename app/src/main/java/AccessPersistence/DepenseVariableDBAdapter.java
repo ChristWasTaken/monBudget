@@ -82,6 +82,31 @@ public class DepenseVariableDBAdapter {
         return depenseVariableList;
     }
 
+    //Méthode find pour les dépenses fixes par mois
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<DepenseVariable> findDepenseVariableByMonth(int month) {
+        List<DepenseVariable> depenseVariableList = new ArrayList<>();
+        try {
+            open();
+            Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COLONNES,
+                    "STRFTIME('%m', " + IDepenseVariableConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseVariableConstantes.COL_DATE);
+
+            cursor.moveToFirst();
+            if (cursor.getCount() > 0) {
+                DepenseVariable depenseVariable = getDepenseVariableFromCursor(cursor);
+                depenseVariableList.add(depenseVariable);
+                while(cursor.moveToNext()) {
+                    depenseVariable = getDepenseVariableFromCursor(cursor);
+                    depenseVariableList.add(depenseVariable);
+                }
+            }
+            return depenseVariableList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //Methode find
     @RequiresApi(api = Build.VERSION_CODES.O)
     public DepenseVariable trouverDepenseVariableParId(int id){

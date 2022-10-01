@@ -1,10 +1,23 @@
 package com.example.monbudget;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.List;
+
+import AccessPersistence.DepenseFixeDBAdapter;
+import AccessPersistence.DepenseVariableDBAdapter;
+import AccessPersistence.RevenueDBAdapter;
+import Moqups.InsertsDeTest;
+import model.DepenseFixe;
+import model.DepenseVariable;
+import model.Revenue;
 
 //import AccessPersistence.DepenseFixeDBAdapterBU;
 
@@ -12,6 +25,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
     private Intent intent;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
         setWidgets();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setWidgets() {
+        ajoutsStaticBidon();
     }
 
     public void onMesComptes(View view) {
@@ -44,4 +60,41 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCalendrier(View view) {
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void ajoutsStaticBidon() {
+        DepenseFixeDBAdapter depenseFixeDBAdapter = new DepenseFixeDBAdapter(MainActivity.this);
+        DepenseVariableDBAdapter depenseVariableDBAdapter = new DepenseVariableDBAdapter(MainActivity.this);
+        RevenueDBAdapter revenueDBAdapter = new RevenueDBAdapter(MainActivity.this);
+
+        depenseFixeDBAdapter.open();
+        depenseVariableDBAdapter.open();
+        revenueDBAdapter.open();
+
+        List<DepenseFixe> depenseFixes = depenseFixeDBAdapter.findAllDepensesFixes();
+        if(depenseFixes.isEmpty()) {
+            depenseFixes = InsertsDeTest.getDepensesFixes();
+            for (DepenseFixe depenseFixe : depenseFixes) {
+                depenseFixeDBAdapter.ajouterDepenseFixe(depenseFixe);
+            }
+        }
+
+        List<DepenseVariable> depenseVariables = depenseVariableDBAdapter.findAll();
+        if(depenseVariables.isEmpty()) {
+            depenseVariables = InsertsDeTest.getDepensesVariables();
+            for (DepenseVariable depenseVariable : depenseVariables) {
+                depenseVariableDBAdapter.ajouterDepenseVariable(depenseVariable);
+            }
+        }
+
+        List<Revenue> revenues = revenueDBAdapter.findAll();
+        if(revenues.isEmpty()) {
+            revenues = InsertsDeTest.getRevenues();
+            for (Revenue revenue : revenues) {
+                revenueDBAdapter.ajouterRevenue(revenue);
+            }
+        }
+    }
+
 }

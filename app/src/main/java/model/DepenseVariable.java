@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class DepenseVariable {
     //Class pojo pour bd
@@ -96,17 +97,18 @@ public class DepenseVariable {
         this.idDepenseVariable = idDepenseVariable;
     }
 
+    public double calculerTotalDepenseMensuelle(List<DepenseVariable> liste) {
+        double total = 0;
+        for (DepenseVariable depense : liste) {
+            total += depense.getMontant();
+        }
+        return total;
+    }
+
     //To-String
 
     @Override
     public String toString() {
-        return "DepenseVariable{" +
-                "description='" + description + '\'' +
-                ", montant=" + montant +
-                ", categorie='" + categorie + '\'' +
-                ", sousCategorie='" + sousCategorie + '\'' +
-                ", date=" + date +
-                ", idCompte=" + idCompte +
-                '}';
+        return  "$ = " + montant;
     }
 }

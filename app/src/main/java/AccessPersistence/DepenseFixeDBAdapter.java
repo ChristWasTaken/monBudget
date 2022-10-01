@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -89,11 +90,14 @@ public class DepenseFixeDBAdapter {
         try {
             open();
             Cursor cursor = db.query(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, IDepenseFixeConstantes.COLONNES,
-                    " WHERE STRFTIME('%m', " + IDepenseFixeConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseFixeConstantes.COL_DATE);
+                    "STRFTIME('%m', " + IDepenseFixeConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseFixeConstantes.COL_DATE);
 
-            if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            if ( cursor.getCount() > 0 ) {
+                DepenseFixe depenseFixe = getDepenseFixeFromCursor(cursor);
+                depensesFixes.add(depenseFixe);
                 while (cursor.moveToNext()) {
-                    DepenseFixe depenseFixe = getDepenseFixeFromCursor(cursor);
+                    depenseFixe = getDepenseFixeFromCursor(cursor);
                     depensesFixes.add(depenseFixe);
                 }
             }

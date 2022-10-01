@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.DepenseFixe;
 import model.Revenue;
 
 public class RevenueDBAdapter {
@@ -75,6 +76,31 @@ public class RevenueDBAdapter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<Revenue> findAllRevenueByMonth(int month) {
+        List<Revenue> revenues = new ArrayList<>();
+        try{
+            open();
+            Cursor cursor = db.query(IRevenueConstantes.TABLE_REVENUE, IRevenueConstantes.COLONNES,
+                    "STRFTIME('%m', " + IRevenueConstantes.COL_DATE + ") = '" + month + "'",
+                    null, null, null, IRevenueConstantes.COL_DATE);
+
+            cursor.moveToFirst();
+            if ( cursor.getCount() > 0 ) {
+                Revenue revenue = getRevenueFromCursor(cursor);
+                revenues.add(revenue);
+                while(cursor.moveToNext()){
+                    revenue = getRevenueFromCursor(cursor);
+                    revenues.add(revenue);
+                }
+            }
+            return revenues;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
