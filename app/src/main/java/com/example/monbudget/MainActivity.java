@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDepenses(View view) {
+        intent = new Intent(MainActivity.this, DepensesActivity.class);
+        startActivity(intent);
     }
 
     public void onCalendrier(View view) {
