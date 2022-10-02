@@ -257,13 +257,12 @@ public class BilanActivity extends AppCompatActivity {
         for (Revenue revenue : revenueListe) {
             if(revenue.getFrequence() != 0){
                 List<Integer> datesPaiements = revenue.trouverJoursVersement(revenue, moisAfficher);
-                revenuesTotal += datesPaiements.size() * revenue.getMontant();
+                revenuesTotal += (datesPaiements.size()) * revenue.getMontant();
             } else {
                 if (revenue.getDate().getMonthValue() == moisAfficher.getMonthValue()) {
                     revenuesTotal += revenue.getMontant();
                 }
             }
-            revenuesTotal += revenue.getMontant();
         }
         return revenuesTotal;
     }

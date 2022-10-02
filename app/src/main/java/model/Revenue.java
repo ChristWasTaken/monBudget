@@ -136,6 +136,7 @@ public class Revenue {
                 jourDuMois++;
             }
         }
+        Log.v("log", joursVersements.size() + " " + joursVersements.toString());
         return joursVersements;
     }
 

@@ -53,14 +53,14 @@ public class InsertsDeTest {
 
     static Revenue revenue1 = new Revenue("Salaire", 1000.00, "Salaire",
             2, LocalDate.of(2022, 9, 1), 1);
-    static Revenue revenue2 = new Revenue("Salaire", 1000.00, "Salaire",
-            2, LocalDate.of(2021, 9, 15), 1);
-    static Revenue revenue3 = new Revenue("Salaire", 1000.00, "Salaire",
-            2, LocalDate.of(2021, 10, 1), 1);
-    static Revenue revenue4 = new Revenue("Salaire", 1000.00, "Salaire",
-            0, LocalDate.of(2021, 10, 15), 1);
-    static Revenue revenue5 = new Revenue("Salaire", 1000.00, "Salaire",
-            0, LocalDate.of(2021, 10, 29), 1);
+    static Revenue revenue2 = new Revenue("test", 10.00, "Salaire",
+            1, LocalDate.of(2022, 8, 15), 1);
+//    static Revenue revenue3 = new Revenue("Salaire", 1000.00, "Salaire",
+//            2, LocalDate.of(2021, 10, 1), 1);
+//    static Revenue revenue4 = new Revenue("Salaire", 1000.00, "Salaire",
+//            0, LocalDate.of(2021, 10, 15), 1);
+//    static Revenue revenue5 = new Revenue("Salaire", 1000.00, "Salaire",
+//            0, LocalDate.of(2021, 10, 29), 1);
     static Revenue revenue6 = new Revenue("Remboursement TVQ", 123.78, "Remboursement impot",
             12, LocalDate.of(2022, 6, 15), 1);
 
@@ -92,7 +92,7 @@ public class InsertsDeTest {
     public static List<Revenue> getRevenues(){
         List<Revenue> revenues = new ArrayList<>();
         revenues.add(revenue1);
-//        revenues.add(revenue2);
+        revenues.add(revenue2);
 //        revenues.add(revenue3);
 //        revenues.add(revenue4);
 //        revenues.add(revenue5);
