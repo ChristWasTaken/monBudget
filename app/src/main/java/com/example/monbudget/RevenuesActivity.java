@@ -35,6 +35,11 @@ import AccessPersistence.RevenueDBAdapter;
 import model.Compte;
 import model.Revenue;
 
+//TODO le menu des compte affiche en toString() dans le dialog box
+//TODO : Est-ce possible de changer le input de la fréquence pour un dropdown menu?
+//TODO : ou ajouter un checkbox qui le disable si on veut une fréquence unique et qui renvois 0 comme valeur?
+//TODO : Important pour savoir comment je traite les versements récurrents ou à une date unique.
+
 public class RevenuesActivity extends AppCompatActivity {
     private CompteDBAdapter compteDBAdapter;
     private RevenueDBAdapter revenueDBAdapter;
@@ -97,7 +102,7 @@ public class RevenuesActivity extends AppCompatActivity {
         EditText txtFrequence = (EditText) subView.findViewById(R.id.txtFrequenceRevenue);
         TextView txtDate = (TextView) subView.findViewById(R.id.lblDatePickerRevenue);
 
-        //Ajout du dickpicker
+        //Ajout du datepicker
         dateChoisi = LocalDate.now();
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
