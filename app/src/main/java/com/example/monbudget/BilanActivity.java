@@ -38,11 +38,6 @@ import model.Revenue;
 
 public class BilanActivity extends AppCompatActivity {
 
-    //TODO : (Must Have)TAB pour afficher le mois courrant(défaut) ou un des 2 mois précédant
-
-    //TODO : (Should Have) méthode pour extrapoler les revenus recursif au bonne date du mois selectionné
-    //TODO : en ce basé sur la date de création du premier versement enregistré.
-
     //TODO : (Could have) TAB pour choisir d'autre données pour le piechart (revenus, dépenses, etc...)
 
     private DepenseFixeDBAdapter depenseFixeDBAdapter;
@@ -52,15 +47,10 @@ public class BilanActivity extends AppCompatActivity {
     private ProgressBar progressBarRevenue;
     private ProgressBar progressBarDepense;
 
-    private TextView textViewRevenue;
-    private TextView textViewDepense;
     private TextView textViewDepensePourcentage;
     private TextView textViewDepenseRevenue;
 
     private TabLayout tabLayout;
-    private TabLayout.Tab tabMoisCourrant;
-    private TabLayout.Tab tabMoisPrecedent;
-    private TabLayout.Tab tabMoisAvantPrecedent;
 
     private List<Revenue> revenueListe;
     private List<DepenseFixe> depensesMensuellesListe;
@@ -75,7 +65,7 @@ public class BilanActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
-        Log.v("log", "onCreate: ");
+
         setWidgets();
         setListeners();
     }
@@ -88,16 +78,11 @@ public class BilanActivity extends AppCompatActivity {
 
         this.progressBarRevenue = findViewById(R.id.progressBarRevenues);
         this.progressBarDepense = findViewById(R.id.progressBarDepenses);
-        this.textViewRevenue = findViewById(R.id.txtRevenue);
-        this.textViewDepense = findViewById(R.id.txtDepenses);
         this.textViewDepensePourcentage = findViewById(R.id.txtDepensePourcentage);
         this.textViewDepenseRevenue = findViewById(R.id.txtDepenseRevenue);
 
         this.tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setScrollPosition(2, 0f, true);
-        this.tabMoisCourrant = tabLayout.getTabAt(2);
-        this.tabMoisPrecedent = tabLayout.getTabAt(1);
-        this.tabMoisAvantPrecedent = tabLayout.getTabAt(0);
 
         onAfficher(2);
     }
@@ -111,14 +96,10 @@ public class BilanActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
@@ -132,15 +113,11 @@ public class BilanActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void onAfficher(int tabPosition) {
 
-        LocalDate dateCourrante = LocalDate.now();
-
         // Récupérer les données du mois à afficher
-        chargerDonneeDuMoisAffiche(tabPosition, dateCourrante);
+        chargerDonneeDuMoisAffiche(tabPosition);
 
         // Chargement des données dans les progress bar
         this.progressBarRevenue.setProgress((int) revenueTotal);
@@ -204,23 +181,29 @@ public class BilanActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void chargerDonneeDuMoisAffiche(int tabPosition, LocalDate dateCourrante) {
-        int moisCourrant = LocalDate.now().getMonthValue();
+    private void chargerDonneeDuMoisAffiche(int tabPosition) {
+        // Récupérer les données du mois à afficher
+        LocalDate dateCourante = LocalDate.now();
 
-        Objects.requireNonNull(tabLayout.getTabAt(2)).setText(dateCourrante.getMonth().toString());
-        Objects.requireNonNull(tabLayout.getTabAt(1)).setText(dateCourrante.minusMonths(1).getMonth().toString());
-        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(dateCourrante.minusMonths(2).getMonth().toString());
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setText(dateCourante.getMonth().toString());
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText(dateCourante.minusMonths(1).getMonth().toString());
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(dateCourante.minusMonths(2).getMonth().toString());
         switch (tabPosition) {
             case 0:
-                dateCourrante = dateCourrante.minusMonths(2);
-                chargerDonneesMoisCourant(dateCourrante);
+                dateCourante = dateCourante.minusMonths(2);
+                Log.v("log", "dateCourante = " + dateCourante);
+                chargerDonneesMoisCourant(dateCourante);
                 break;
             case 1:
-                dateCourrante = dateCourrante.minusMonths(1);
-                chargerDonneesMoisCourant(dateCourrante);
+                dateCourante = dateCourante.minusMonths(1);
+                Log.v("log", "dateCourante = " + dateCourante);
+
+                chargerDonneesMoisCourant(dateCourante);
                 break;
             case 2:
-                chargerDonneesMoisCourant(dateCourrante);
+                Log.v("log", "dateCourante = " + dateCourante);
+
+                chargerDonneesMoisCourant(dateCourante);
                 break;
         }
     }
@@ -234,6 +217,7 @@ public class BilanActivity extends AppCompatActivity {
         if(depensesMensuellesListe != null){
             depensesMensuellesListe.clear();
         }
+        Log.v("log", "moisCourant = " + moisCourant);
         revenueTotal = trouverRevenueTotal(moisCourant);
         depensesMensuellesListe = chargerListeDepenses(moisCourant);
     }
@@ -270,8 +254,8 @@ public class BilanActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private List<DepenseFixe> chargerListeDepenses(LocalDate moisCourrant) {
         // Charger toutes les dépenses mensuels de la BD
-        List<DepenseFixe> depensesFixes = depenseFixeDBAdapter.findDepensesFixesParMois(moisCourrant.getMonthValue());
-        List<DepenseVariable> depensesVariables = depenseVariableDBAdapter.findDepenseVariableByMonth(moisCourrant.getMonthValue());
+        List<DepenseFixe> depensesFixes = depenseFixeDBAdapter.findAllDepensesFixes();
+        List<DepenseVariable> depensesVariables = depenseVariableDBAdapter.findDepenseVariableByMonth(moisCourrant);
 
         // Tableau des catégories de dépenses
         final String[] CATEGORIES = {"Habitation", "Services publics", "Assurance",

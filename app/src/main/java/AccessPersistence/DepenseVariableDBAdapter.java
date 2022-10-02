@@ -5,11 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,12 +87,16 @@ public class DepenseVariableDBAdapter {
 
     //Méthode find pour les dépenses fixes par mois
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<DepenseVariable> findDepenseVariableByMonth(int month) {
+    public List<DepenseVariable> findDepenseVariableByMonth(LocalDate date) {
         List<DepenseVariable> depenseVariableList = new ArrayList<>();
+        int month = date.getMonthValue();
+        DecimalFormat df = new DecimalFormat("00");
+        String formattedMonth = df.format(month);
+
         try {
             open();
             Cursor cursor = db.query(IDepenseVariableConstantes.TABLE_DEPENSEVARIABLE, IDepenseVariableConstantes.COLONNES,
-                    "STRFTIME('%m', " + IDepenseVariableConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseVariableConstantes.COL_DATE);
+                    "STRFTIME('%m', " + IDepenseVariableConstantes.COL_DATE + ") = '" + formattedMonth + "'", null, null, null, IDepenseVariableConstantes.COL_DATE);
 
             cursor.moveToFirst();
             if (cursor.getCount() > 0) {
@@ -100,10 +107,14 @@ public class DepenseVariableDBAdapter {
                     depenseVariableList.add(depenseVariable);
                 }
             }
+            close();
             return depenseVariableList;
         } catch (Exception e) {
             e.printStackTrace();
+            Log.v("log", "findDepenseVariableByMonth: " + e.getMessage());
+            close();
         }
+        close();
         return null;
     }
 

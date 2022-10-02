@@ -31,36 +31,29 @@ public class InsertsDeTest {
     static DepenseFixe DepenseFixe6 = new DepenseFixe("Pret automobile", 350.00, CATEGORIES[3],
             "Loyer", 0, LocalDate.of(2022, 10, 12), 1);
 
-
     static DepenseVariable depenseVariable1 = new DepenseVariable("Achat", 23.23,
-            "Alimentation", "Épicerie", LocalDate.of(2022, 1, 1), 1);
+            "Alimentation", "Épicerie", LocalDate.of(2022, 8, 1), 1);
     static DepenseVariable depenseVariable2 = new DepenseVariable("Achat", 175,
             "Alimentation", "Épicerie", LocalDate.of(2022, 10, 1), 1);
     static DepenseVariable depenseVariable3 = new DepenseVariable("Achat", 125,
-            "Alimentation", "Épicerie", LocalDate.of(2021, 10, 1), 1);
+            "Alimentation", "Épicerie", LocalDate.of(2022, 10, 1), 1);
     static DepenseVariable depenseVariable4 = new DepenseVariable("Achat", 50,
-            "Alimentation", "Épicerie", LocalDate.of(2021, 1, 1), 1);
+            "Alimentation", "Épicerie", LocalDate.of(2022, 9, 1), 1);
     static DepenseVariable depenseVariable5 = new DepenseVariable("Achat", 40,
-            "Alimentation", "Épicerie", LocalDate.of(2021, 10, 2), 1);
+            "Alimentation", "Épicerie", LocalDate.of(2022, 9, 2), 1);
     static DepenseVariable depenseVariable6 = new DepenseVariable("Achat", 30,
-            "Entretien ménagé", "Achat", LocalDate.of(2021, 10, 1), 1);
+            "Entretien ménagé", "Achat", LocalDate.of(2022, 10, 1), 1);
     static DepenseVariable depenseVariable7 = new DepenseVariable("Achat", 50,
-            "Entretien ménagé", "Achat", LocalDate.of(2021, 10, 14), 1);
+            "Entretien ménagé", "Achat", LocalDate.of(2022, 10, 14), 1);
     static DepenseVariable depenseVariable8 = new DepenseVariable("Achat", 20,
-            "Entretien ménagé", "Achat", LocalDate.of(2021, 9, 14), 1);
+            "Entretien ménagé", "Achat", LocalDate.of(2022, 9, 14), 1);
     static DepenseVariable depenseVariable9 = new DepenseVariable("Achat", 10,
-            "Entretien ménagé", "Achat", LocalDate.of(2021, 9, 1), 1);
+            "Entretien ménagé", "Achat", LocalDate.of(2022, 9, 1), 1);
 
     static Revenue revenue1 = new Revenue("Salaire", 1000.00, "Salaire",
             2, LocalDate.of(2022, 9, 1), 1);
     static Revenue revenue2 = new Revenue("test", 10.00, "Salaire",
             1, LocalDate.of(2022, 8, 15), 1);
-//    static Revenue revenue3 = new Revenue("Salaire", 1000.00, "Salaire",
-//            2, LocalDate.of(2021, 10, 1), 1);
-//    static Revenue revenue4 = new Revenue("Salaire", 1000.00, "Salaire",
-//            0, LocalDate.of(2021, 10, 15), 1);
-//    static Revenue revenue5 = new Revenue("Salaire", 1000.00, "Salaire",
-//            0, LocalDate.of(2021, 10, 29), 1);
     static Revenue revenue6 = new Revenue("Remboursement TVQ", 123.78, "Remboursement impot",
             12, LocalDate.of(2022, 6, 15), 1);
 

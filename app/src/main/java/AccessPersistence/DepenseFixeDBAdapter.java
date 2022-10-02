@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +86,17 @@ public class DepenseFixeDBAdapter {
 
     //Méthode find pour les dépenses fixes par mois
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<DepenseFixe> findDepensesFixesParMois(int month) {
+    public List<DepenseFixe> findDepensesFixesParMois(LocalDate date) {
         ArrayList<DepenseFixe> depensesFixes = new ArrayList<>();
+
+        int month = date.getMonthValue();
+        DecimalFormat df = new DecimalFormat("00");
+        String formattedMonth = df.format(month);
+
         try {
             open();
             Cursor cursor = db.query(IDepenseFixeConstantes.TABLE_DEPENSEFIXE, IDepenseFixeConstantes.COLONNES,
-                    "STRFTIME('%m', " + IDepenseFixeConstantes.COL_DATE + ") = '" + month + "'", null, null, null, IDepenseFixeConstantes.COL_DATE);
+                    "STRFTIME('%m', " + IDepenseFixeConstantes.COL_DATE + ") = '" + formattedMonth + "'", null, null, null, IDepenseFixeConstantes.COL_DATE);
 
             cursor.moveToFirst();
             if ( cursor.getCount() > 0 ) {

@@ -111,7 +111,7 @@ public class DepenseFixe {
 
     @Override
     public String toString() {
-        return "DepenseFixe{" +
+        return "\nDepenseFixe{" +
                 "description='" + description + '\'' +
                 ", montant=" + montant +
                 ", categorie='" + categorie + '\'' +
