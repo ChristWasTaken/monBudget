@@ -25,6 +25,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.monbudget.fragments.FixeFragment;
+import com.example.monbudget.fragments.VariableFregment;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -42,6 +45,7 @@ public class RevenuesActivity extends AppCompatActivity {
     private List<Revenue> listRevenues;
     private Intent intent;
     private String[] types = {"Salaire net", "Revenue irregulier", "Placement", "Pension alimentaire", "Rentes", "Autre revenus"};
+    private String[] frequences = {"Versement unique", "A tous les semaines", "Au deux semaines", "A tous les mois"};
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private LocalDate dateChoisi;
 
@@ -94,10 +98,9 @@ public class RevenuesActivity extends AppCompatActivity {
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
-        EditText txtFrequence = (EditText) subView.findViewById(R.id.txtFrequenceRevenue);
         TextView txtDate = (TextView) subView.findViewById(R.id.lblDatePickerRevenue);
 
-        //Ajout du dickpicker
+        //Ajout du datepicker
         dateChoisi = LocalDate.now();
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,11 +124,19 @@ public class RevenuesActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date;
+                String monthString;
+                String dayString;
                 if(month < 10){
-                    date = day + "/0" + month + "/" + year;
-                }else {
-                    date = day + "/" + month + "/" + year;
+                   monthString = "0" + month;
+                }else{
+                    monthString = String.valueOf(month);
                 }
+                if(day < 10){
+                    dayString = "0" + day;
+                }else{
+                    dayString = String.valueOf(day);
+                }
+                date = dayString + "/" + monthString + "/" + year;
                 dateChoisi = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 txtDate.setText(date);
             }
@@ -143,6 +154,12 @@ public class RevenuesActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCompte.setAdapter(arrayAdapter);
 
+        //Spinner dropdown frequence
+        Spinner spinnerFrequence = (Spinner) subView.findViewById(R.id.spinnerFequRevenue);
+        ArrayAdapter adapterArray = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frequences);
+        adapterArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequence.setAdapter(adapterArray);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter un revenue");
         builder.setView(subView);
@@ -157,7 +174,9 @@ public class RevenuesActivity extends AppCompatActivity {
                     Revenue revenue = new Revenue();
                     revenue.setDescription(txtDescription.getText().toString());
                     revenue.setMontant(Double.parseDouble(txtMontant.getText().toString()));
-                    revenue.setFrequence(Integer.parseInt(txtFrequence.getText().toString()));
+                    int positionSpinnerFrequence = spinnerFrequence.getSelectedItemPosition();
+                    int frequence = getValueOfSpinnerFrequence(positionSpinnerFrequence);
+                    revenue.setFrequence(frequence);
                     revenue.setDate(dateChoisi);
                     int positionSpinnerType = spinnerType.getSelectedItemPosition();
                     revenue.setType(types[positionSpinnerType]);
@@ -185,6 +204,21 @@ public class RevenuesActivity extends AppCompatActivity {
 
     }
 
+    private int getValueOfSpinnerFrequence(int positionSpinnerFrequence) {
+        switch (positionSpinnerFrequence){
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;
+            default:
+                return 0;
+        }
+    }
+
     private void updateSoldeCompte(Revenue revenue) {
         //Faire un update du solde du compte avec le montant du revenue
         Compte compte = compteDBAdapter.trouverCompteParId(revenue.getIdCompte());
@@ -208,17 +242,15 @@ public class RevenuesActivity extends AppCompatActivity {
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
-        EditText txtFrequence = (EditText) subView.findViewById(R.id.txtFrequenceRevenue);
         TextView txtDate = (TextView) subView.findViewById(R.id.lblDatePickerRevenue);
 
         //Set les valeurs
         txtDescription.setText(listRevenues.get(position).getDescription());
         txtMontant.setText(String.valueOf(listRevenues.get(position).getMontant()));
         double montant = listRevenues.get(position).getMontant();
-        txtFrequence.setText(String.valueOf(listRevenues.get(position).getFrequence()));
         txtDate.setText(String.valueOf(listRevenues.get(position).getDate()));
 
-        //Ajout du dickpicker
+        //Ajout du datepicker
         dateChoisi = LocalDate.now();
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,11 +274,19 @@ public class RevenuesActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date;
+                String monthString;
+                String dayString;
                 if(month < 10){
-                    date = day + "/0" + month + "/" + year;
-                }else {
-                    date = day + "/" + month + "/" + year;
+                    monthString = "0" + month;
+                }else{
+                    monthString = String.valueOf(month);
                 }
+                if(day < 10){
+                    dayString = "0" + day;
+                }else{
+                    dayString = String.valueOf(day);
+                }
+                date = dayString + "/" + monthString + "/" + year;
                 dateChoisi = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 txtDate.setText(date);
             }
@@ -267,6 +307,14 @@ public class RevenuesActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCompte.setAdapter(arrayAdapter);
 
+        //Spinner dropdown frequence
+        Spinner spinnerFrequence = (Spinner) subView.findViewById(R.id.spinnerFequRevenue);
+        ArrayAdapter adapterArray = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frequences);
+        adapterArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequence.setAdapter(adapterArray);
+        int positionInitSpinnerFrequence = getPreviousSpinnerPosition(listRevenues.get(position).getFrequence());
+        spinnerFrequence.setSelection(positionInitSpinnerFrequence);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Modifier un revenue");
         builder.setView(subView);
@@ -282,7 +330,9 @@ public class RevenuesActivity extends AppCompatActivity {
                     revenue.setIdRevenue(listRevenues.get(position).getIdRevenue());
                     revenue.setDescription(txtDescription.getText().toString());
                     revenue.setMontant(Double.parseDouble(txtMontant.getText().toString()));
-                    revenue.setFrequence(Integer.parseInt(txtFrequence.getText().toString()));
+                    int positionSpinnerFrequence = spinnerFrequence.getSelectedItemPosition();
+                    int frequence = getValueOfSpinnerFrequence(positionSpinnerFrequence);
+                    revenue.setFrequence(frequence);
                     revenue.setDate(dateChoisi);
                     int positionSpinnerType = spinnerType.getSelectedItemPosition();
                     revenue.setType(types[positionSpinnerType]);
@@ -306,6 +356,15 @@ public class RevenuesActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    private int getPreviousSpinnerPosition(int frequence) {
+        switch(frequence){
+            case 4:
+                return 3;
+            default:
+                return frequence;
+        }
     }
 
     private void mettreAJourSoldeCompte(Revenue revenue, Double montant) {
