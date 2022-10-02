@@ -7,19 +7,19 @@
     tools:context=".DepensesActivity">
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_depences"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tab_layout_depences">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fixe"/>
+            android:text="Fixe" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Variable"/>
+            android:text="Variable" />
 
     </com.google.android.material.tabs.TabLayout>
 

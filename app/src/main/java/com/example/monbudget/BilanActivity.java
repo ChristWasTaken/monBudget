@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -21,11 +20,14 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.tabs.TabLayout;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Objects;
 
 import AccessPersistence.DepenseFixeDBAdapter;
 import AccessPersistence.DepenseVariableDBAdapter;
@@ -52,6 +54,17 @@ public class BilanActivity extends AppCompatActivity {
 
     private TextView textViewRevenue;
     private TextView textViewDepense;
+    private TextView textViewDepensePourcentage;
+    private TextView textViewDepenseRevenue;
+
+    private TabLayout tabLayout;
+    private TabLayout.Tab tabMoisCourrant;
+    private TabLayout.Tab tabMoisPrecedent;
+    private TabLayout.Tab tabMoisAvantPrecedent;
+
+    private List<Revenue> revenueListe;
+    private List<DepenseFixe> depensesMensuellesListe;
+    private double revenueTotal;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -62,17 +75,9 @@ public class BilanActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
+        Log.v("log", "onCreate: ");
         setWidgets();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        setListeners();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -85,28 +90,74 @@ public class BilanActivity extends AppCompatActivity {
         this.progressBarDepense = findViewById(R.id.progressBarDepenses);
         this.textViewRevenue = findViewById(R.id.txtRevenue);
         this.textViewDepense = findViewById(R.id.txtDepenses);
+        this.textViewDepensePourcentage = findViewById(R.id.txtDepensePourcentage);
+        this.textViewDepenseRevenue = findViewById(R.id.txtDepenseRevenue);
 
-        onAfficher();
+        this.tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setScrollPosition(2, 0f, true);
+        this.tabMoisCourrant = tabLayout.getTabAt(2);
+        this.tabMoisPrecedent = tabLayout.getTabAt(1);
+        this.tabMoisAvantPrecedent = tabLayout.getTabAt(0);
+
+        onAfficher(2);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void onAfficher() {
+    private void setListeners() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                onAfficher(tab.getPosition());
+            }
 
-        // Chargement des données du bilan
-        List<DepenseFixe> depensesMensuelles = chargerListeDepenses();
-        double revenueTotal = trouverRevenueTotal();
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void onAfficher(int tabPosition) {
+
+        LocalDate dateCourrante = LocalDate.now();
+
+        // Récupérer les données du mois à afficher
+        chargerDonneeDuMoisAffiche(tabPosition, dateCourrante);
 
         // Chargement des données dans les progress bar
         this.progressBarRevenue.setProgress((int) revenueTotal);
-        textViewRevenue.setText(new StringBuilder().append("Revenues mensuels totaux: ").append(String.valueOf(revenueTotal)).append(" $").toString());
 
-        double depenseTotal = trouverDepenseTotal(depensesMensuelles);
+        double depenseTotal = trouverDepenseTotal(depensesMensuellesListe);
         double pourcentageDepense = (depenseTotal / revenueTotal) * 100;
         this.progressBarDepense.setProgress((int) pourcentageDepense);
-        textViewDepense.setText(new StringBuilder().append("Dépenses mensuelles totales: ").append(String.valueOf(depenseTotal)).append(" $").toString());
+
+        Formatter formatter = new Formatter();
+        formatter = formatter.format("%1$.2f/%2$.2f $", depenseTotal, revenueTotal);
+
+        textViewDepensePourcentage.setText(new StringBuilder().append((int)pourcentageDepense).append("/").append(100));
+        textViewDepenseRevenue.setText(formatter.toString());
 
         // Création du piechart
         PieChart pieChart = findViewById(R.id.pieChart);
+        pieChart.clear();
         pieChart.setCenterText("Dépenses mensuelles");
         pieChart.setCenterTextSize(20);
         pieChart.setCenterTextColor(R.color.dark_grey);
@@ -115,7 +166,7 @@ public class BilanActivity extends AppCompatActivity {
         // Création des données du piechart
         ArrayList<PieEntry> depenses = new ArrayList<>();
 
-        for (DepenseFixe depenseFixe : depensesMensuelles) {
+        for (DepenseFixe depenseFixe : depensesMensuellesListe) {
             depenses.add(new PieEntry((float) depenseFixe.getMontant() , depenseFixe.getCategorie()));
         }
 
@@ -149,8 +200,42 @@ public class BilanActivity extends AppCompatActivity {
         legend.setXEntrySpace(50f);
         legend.setFormToTextSpace(10f);
 
-
         pieChart.animate();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void chargerDonneeDuMoisAffiche(int tabPosition, LocalDate dateCourrante) {
+        int moisCourrant = LocalDate.now().getMonthValue();
+
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setText(dateCourrante.getMonth().toString());
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText(dateCourrante.minusMonths(1).getMonth().toString());
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(dateCourrante.minusMonths(2).getMonth().toString());
+        switch (tabPosition) {
+            case 0:
+                dateCourrante = dateCourrante.minusMonths(2);
+                chargerDonneesMoisCourant(dateCourrante);
+                break;
+            case 1:
+                dateCourrante = dateCourrante.minusMonths(1);
+                chargerDonneesMoisCourant(dateCourrante);
+                break;
+            case 2:
+                chargerDonneesMoisCourant(dateCourrante);
+                break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void chargerDonneesMoisCourant(LocalDate moisCourant) {
+        // Chargement des données du bilan
+        if(revenueTotal != 0){
+            revenueTotal = 0;
+        }
+        if(depensesMensuellesListe != null){
+            depensesMensuellesListe.clear();
+        }
+        revenueTotal = trouverRevenueTotal(moisCourant);
+        depensesMensuellesListe = chargerListeDepenses(moisCourant);
     }
 
     private double trouverDepenseTotal(List<DepenseFixe> depensesMensuelles) {
@@ -162,20 +247,32 @@ public class BilanActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private double trouverRevenueTotal() {
+    private double trouverRevenueTotal(LocalDate moisAfficher) {
         double revenuesTotal = 0;
-        List<Revenue> revenues = this.revenueDBAdapter.findAllRevenueByMonth(LocalDate.now().getMonthValue());
-        for (Revenue revenue : revenues) {
+        if(revenueListe != null){
+            revenueListe.clear();
+        }
+        revenueListe = this.revenueDBAdapter.findAll();
+
+        for (Revenue revenue : revenueListe) {
+            if(revenue.getFrequence() != 0){
+                List<Integer> datesPaiements = revenue.trouverJoursVersement(revenue, moisAfficher);
+                revenuesTotal += datesPaiements.size() * revenue.getMontant();
+            } else {
+                if (revenue.getDate().getMonthValue() == moisAfficher.getMonthValue()) {
+                    revenuesTotal += revenue.getMontant();
+                }
+            }
             revenuesTotal += revenue.getMontant();
         }
         return revenuesTotal;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private List<DepenseFixe> chargerListeDepenses() {
+    private List<DepenseFixe> chargerListeDepenses(LocalDate moisCourrant) {
         // Charger toutes les dépenses mensuels de la BD
-        List<DepenseFixe> depensesFixes = depenseFixeDBAdapter.findDepensesFixesParMois(LocalDate.now().getMonthValue());
-        List<DepenseVariable> depensesVariables = depenseVariableDBAdapter.findDepenseVariableByMonth(LocalDate.now().getMonthValue());
+        List<DepenseFixe> depensesFixes = depenseFixeDBAdapter.findDepensesFixesParMois(moisCourrant.getMonthValue());
+        List<DepenseVariable> depensesVariables = depenseVariableDBAdapter.findDepenseVariableByMonth(moisCourrant.getMonthValue());
 
         // Tableau des catégories de dépenses
         final String[] CATEGORIES = {"Habitation", "Services publics", "Assurance",
@@ -183,7 +280,7 @@ public class BilanActivity extends AppCompatActivity {
 
         // Depense fixe pour stocker toutes les dépenses mensuelles variables totalisées
         DepenseFixe depensesVariablesMensuelles = new DepenseFixe("Dépenses variables", 0,"Dépenses variables",
-                "", 0, LocalDate.now(), 0);
+                "", 0, moisCourrant, 0);
         for (DepenseVariable depenseVariable : depensesVariables) {
             depensesVariablesMensuelles.setMontant(depensesVariablesMensuelles.getMontant() + depenseVariable.getMontant());
         }
@@ -192,7 +289,7 @@ public class BilanActivity extends AppCompatActivity {
         // Créer une liste des dépenses mensuelles filtrer par catégories de dépenses
         List<DepenseFixe> depensesMensuelles = new ArrayList<>();
         for (String categorie : CATEGORIES) {
-            DepenseFixe depenseMensuelle = new DepenseFixe(categorie, 0, categorie, "", 0, LocalDate.now(), 0);
+            DepenseFixe depenseMensuelle = new DepenseFixe(categorie, 0, categorie, "", 0, moisCourrant, 0);
             for (DepenseFixe depenseFixe : depensesFixes) {
                 if (depenseFixe.getCategorie().equals(categorie)) {
                     depenseMensuelle.setMontant(depenseMensuelle.getMontant() + depenseFixe.getMontant());

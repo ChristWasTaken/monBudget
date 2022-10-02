@@ -7,12 +7,40 @@
     android:background="@color/light_grey"
     tools:context=".BilanActivity">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabAvantMoisPrecedant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mois avant le précédant" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabMoisPrecedant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mois précédant" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabMoisCourrant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mois courrant" />
+    </com.google.android.material.tabs.TabLayout>
+
     <TextView
         android:id="@+id/txtRevenue"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:maxLines="1"
         android:text="Revenues mensuels"
@@ -22,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     <ProgressBar
         android:id="@+id/progressBarRevenues"
@@ -53,6 +81,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarRevenues" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarDepenses">
+
+        <TextView
+            android:id="@+id/txtDepensePourcentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:textSize="14sp" />
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/txtDepenseRevenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:textSize="14sp"
+            android:gravity="right"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBarDepenses"
         style="?android:attr/progressBarStyleHorizontal"
@@ -63,6 +121,7 @@
         android:progressTint="@color/red_balance"
         android:scaleY="4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDepenses" />
 
@@ -71,14 +130,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarDepenses" >
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     </com.github.mikephil.charting.charts.PieChart>
 

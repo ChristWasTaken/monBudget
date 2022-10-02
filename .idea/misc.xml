@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/drawable-v24/savings-48px.xml" value="0.1" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_bilan.xml" value="0.33" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_bilan.xml" value="0.3333333333333333" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_comptes.xml" value="0.3723958333333333" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_depenses.xml" value="0.3859375" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_main.xml" value="0.2947916666666667" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_pie_chart.xml" value="0.5" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/comptes_row.xml" value="0.3723958333333333" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/dialogue_comptes_ajout.xml" value="0.3723958333333333" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/fragment_fixe_fragment.xml" value="0.3859375" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/revenue_dialogue.xml" value="0.25846153846153846" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_comptes.xml" value="0.3625" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_revenues.xml" value="0.3625" />
