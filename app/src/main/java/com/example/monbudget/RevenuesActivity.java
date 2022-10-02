@@ -37,7 +37,7 @@ import model.Revenue;
 
 //TODO le menu des compte affiche en toString() dans le dialog box
 //TODO : Est-ce possible de changer le input de la fréquence pour un dropdown menu?
-//TODO : ou ajouter un checkbox qui le disable si on veut une fréquence unique et qui renvois 0 comme valeur?
+//TODO : ou ajouter un checkbox qui le disable si on veut un versement unique et qui set la valeur à 0
 //TODO : Important pour savoir comment je traite les versements récurrents ou à une date unique.
 
 public class RevenuesActivity extends AppCompatActivity {
