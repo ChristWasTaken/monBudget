@@ -26,9 +26,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.monbudget.fragments.FixeFragment;
-import com.example.monbudget.fragments.VariableFregment;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -105,7 +102,7 @@ public class RevenuesActivity extends AppCompatActivity {
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
-        TextView txtDate = (TextView) subView.findViewById(R.id.lblDatePickerRevenue);
+        TextView txtDate = (TextView) subView.findViewById(R.id.datePickerVariable);
 
         //Ajout du datepicker
         dateChoisi = LocalDate.now();
@@ -249,7 +246,7 @@ public class RevenuesActivity extends AppCompatActivity {
         View subView = inflater.inflate(R.layout.revenue_dialogue, null);
         EditText txtDescription = (EditText) subView.findViewById(R.id.txtDescriptionRevenue);
         EditText txtMontant = (EditText) subView.findViewById(R.id.txtMontantRevenue);
-        TextView txtDate = (TextView) subView.findViewById(R.id.lblDatePickerRevenue);
+        TextView txtDate = (TextView) subView.findViewById(R.id.datePickerVariable);
 
         //Set les valeurs
         txtDescription.setText(listRevenues.get(position).getDescription());

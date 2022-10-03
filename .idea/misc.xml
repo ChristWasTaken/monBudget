@@ -3,26 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/drawable-v24/savings-48px.xml" value="0.1" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_bilan.xml" value="0.3333333333333333" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_calendrier.xml" value="0.55" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_bilan.xml" value="0.3109375" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_comptes.xml" value="0.3723958333333333" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_depenses.xml" value="0.3859375" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_main.xml" value="0.2947916666666667" />
+        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_pie_chart.xml" value="0.5" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/calendrier_row.xml" value="0.33" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/comptes_row.xml" value="0.3723958333333333" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/dialogue_comptes_ajout.xml" value="0.3723958333333333" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/fragment_fixe_fragment.xml" value="0.3859375" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/revenue_dialogue.xml" value="0.25846153846153846" />
-        <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/revenue_row.xml" value="0.55" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/drawable/ic_add_background.xml" value="0.326" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_bilan.xml" value="0.4" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_comptes.xml" value="0.3625" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_depense_fixe.xml" value="0.3625" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_depenses.xml" value="0.3" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/activity_revenues.xml" value="0.3625" />
-        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/comptes_row.xml" value="0.264" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/comptes_row.xml" value="0.21395348837209302" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/depense_fixe_dialogue.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/depense_variable_dialogue.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/depenses_row.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/dialogue_comptes_ajout.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/dialogue_revenue.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/fragment_fixe_fragment.xml" value="0.3" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/fragment_variable_fregment.xml" value="0.3" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/revenue_dialogue.xml" value="0.35" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/layout/revenue_row.xml" value="0.4" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/monBudget1/app/src/main/res/mipmap-anydpi-v26/ic_add_round.xml" value="0.1375" />
       </map>
     </option>
   </component>

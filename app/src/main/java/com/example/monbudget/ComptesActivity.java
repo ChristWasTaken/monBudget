@@ -26,7 +26,6 @@ import AccessPersistence.CompteDBAdapter;
 import model.Compte;
 
 public class ComptesActivity extends AppCompatActivity{
-    private LinearLayout linearLayoutCompte;
     private CompteDBAdapter compteDBAdapter;
     private List<Compte> listComptes;
     private Intent intent;

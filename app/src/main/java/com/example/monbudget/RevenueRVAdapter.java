@@ -1,6 +1,7 @@
 package com.example.monbudget;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -60,6 +62,7 @@ public class RevenueRVAdapter extends RecyclerView.Adapter<RevenueRVAdapter.MyVi
 
         private void setListeners() {
             btnEdit.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
                     ((RevenuesActivity) context).openDialogueUpdateRevenue(getAdapterPosition());
@@ -67,6 +70,7 @@ public class RevenueRVAdapter extends RecyclerView.Adapter<RevenueRVAdapter.MyVi
             });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
                     ((RevenuesActivity) context).openDialogueDeleteRevenue(getAdapterPosition());

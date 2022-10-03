@@ -5,25 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinnerRevenueCompte"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="94dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="107dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerVariable" />
-
     <EditText
-        android:id="@+id/txtDescriptionRevenue"
+        android:id="@+id/txtDescriptionFixe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
@@ -33,56 +21,77 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtMontantRevenue"
+        android:id="@+id/txtMontantFixe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:hint="Montant"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionRevenue" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionFixe" />
 
     <Spinner
-        android:id="@+id/spinnerTypeRevenue"
+        android:id="@+id/spinnerCategorieFixe"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="94dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginEnd="101dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMontantRevenue" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMontantFixe" />
+
+    <Spinner
+        android:id="@+id/spinnerSousCategorieFixe"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="101dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategorieFixe" />
+
+    <Spinner
+        android:id="@+id/spinnerFrequenceFixe"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="101dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSousCategorieFixe" />
 
     <TextView
-        android:id="@+id/datePickerVariable"
+        android:id="@+id/datePickerFixe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginEnd="101dp"
         android:text="Date Picker"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFequRevenue" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFrequenceFixe" />
 
     <Spinner
-        android:id="@+id/spinnerFequRevenue"
+        android:id="@+id/spinnerCompteFixe"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="94dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginEnd="101dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTypeRevenue" />
+        app:layout_constraintTop_toBottomOf="@+id/datePickerFixe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
