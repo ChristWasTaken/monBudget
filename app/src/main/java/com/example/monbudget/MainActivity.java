@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCalendrier(View view) {
+        intent = new Intent(MainActivity.this, CalendrierActivity.class);
+        startActivity(intent);
     }
 
 

@@ -55,7 +55,7 @@ public class InsertsDeTest {
     static Revenue revenue2 = new Revenue("test", 10.00, "Salaire",
             1, LocalDate.of(2022, 8, 15), 1);
     static Revenue revenue6 = new Revenue("Remboursement TVQ", 123.78, "Remboursement impot",
-            12, LocalDate.of(2022, 6, 15), 1);
+            4, LocalDate.of(2022, 6, 15), 1);
 
     public static List<model.DepenseFixe> getDepensesFixes(){
         List<DepenseFixe> depensesFixes = new ArrayList<>();

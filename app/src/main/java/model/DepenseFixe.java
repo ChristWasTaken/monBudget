@@ -121,4 +121,8 @@ public class DepenseFixe {
                 ", idCompte=" + idCompte +
                 '}';
     }
+
+    public boolean isPaye() {
+        return false;
+    }
 }

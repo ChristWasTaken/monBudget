@@ -89,6 +89,7 @@ public class DepenseVariableDBAdapter {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<DepenseVariable> findDepenseVariableByMonth(LocalDate date) {
         List<DepenseVariable> depenseVariableList = new ArrayList<>();
+
         int month = date.getMonthValue();
         DecimalFormat df = new DecimalFormat("00");
         String formattedMonth = df.format(month);
