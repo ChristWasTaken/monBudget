@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -52,6 +54,7 @@ public class RevenuesActivity extends AppCompatActivity {
     private String[] frequences = {"Versement unique", "A tous les semaines", "Au deux semaines", "A tous les mois"};
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private LocalDate dateChoisi;
+    private FloatingActionButton fabAjouter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -65,7 +68,18 @@ public class RevenuesActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setWidget();
+        setListeners();
         afficherRevenues(revenueDBAdapter);
+    }
+
+    private void setListeners() {
+        fabAjouter.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                openDialogueAjouterRevenue();
+            }
+        });
     }
 
     @Override
@@ -89,11 +103,7 @@ public class RevenuesActivity extends AppCompatActivity {
 
     private void setWidget() {
         intent = getIntent();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void onAjouterRevenue(View view) {
-        openDialogueAjouterRevenue();
+        fabAjouter = findViewById(R.id.fabRevenue);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

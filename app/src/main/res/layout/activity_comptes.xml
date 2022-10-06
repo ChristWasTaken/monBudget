@@ -11,47 +11,47 @@
         android:layout_width="409dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAjouterCompte" />
-
-    <Button
-        android:id="@+id/btnAjouterCompte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="154dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="163dp"
-        android:onClick="onAjouterCompte"
-        android:text="Ajouter Compte"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="93dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="32dp"
         android:text="Solde total"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAjouterCompte" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lblSoldeTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="103dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAjouterCompte" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCompte"
+        android:layout_width="53dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:layout_marginStart="325dp"
+        android:layout_marginTop="400dp"
+        android:contentDescription="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 import AccessPersistence.CompteDBAdapter;
@@ -31,18 +33,29 @@ public class ComptesActivity extends AppCompatActivity{
     private Intent intent;
     private String[] types = {"Positif", "Negatif"};
     private TextView lblSoldeTotal;
+    private FloatingActionButton fabAjouter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comptes);
         setWidget();
+        setListeners();
         this.compteDBAdapter = new CompteDBAdapter(ComptesActivity.this);
         //Ajout du back button dans la bar de navigation
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         //Appel de la methode pour remplir la liste
         afficherComptes(compteDBAdapter);
+    }
+
+    private void setListeners() {
+        fabAjouter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialogueAjoutCompte();
+            }
+        });
     }
 
     //Permet le back button sur la bar de navigation
@@ -59,6 +72,7 @@ public class ComptesActivity extends AppCompatActivity{
     private void setWidget() {
         intent = getIntent();
         lblSoldeTotal = findViewById(R.id.lblSoldeTotal);
+        fabAjouter = findViewById(R.id.fabCompte);
     }
 
     private void afficherComptes(CompteDBAdapter compteDBAdapter) {
@@ -82,10 +96,6 @@ public class ComptesActivity extends AppCompatActivity{
             }
         }
         return (positif - negatif);
-    }
-
-    public void onAjouterCompte(View view) {
-        openDialogueAjoutCompte();
     }
 
     private void openDialogueAjoutCompte() {
