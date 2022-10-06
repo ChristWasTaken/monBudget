@@ -14,35 +14,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import model.DepenseFixe;
+import model.DepenseVariable;
 
-public class DepenseFixeRVAdapter extends RecyclerView.Adapter<DepenseFixeRVAdapter.MyViewHolder> {
+public class DepenseVariableRVAdapter extends RecyclerView.Adapter<DepenseVariableRVAdapter.MyViewHolder> {
     private Context context;
-    List<DepenseFixe> listDepensesFixes;
+    private List<DepenseVariable> listDepensesVariables;
 
-    public DepenseFixeRVAdapter(Context context, List<DepenseFixe> listDepensesFixes){
-        this.listDepensesFixes = listDepensesFixes;
+    public DepenseVariableRVAdapter(Context context, List<DepenseVariable> listDepensesVariables){
+        this.listDepensesVariables = listDepensesVariables;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public DepenseFixeRVAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DepenseVariableRVAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =  LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.depenses_row, parent, false);
-        return new DepenseFixeRVAdapter.MyViewHolder(view, context);
+        return new DepenseVariableRVAdapter.MyViewHolder(view, context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DepenseFixeRVAdapter.MyViewHolder holder, int position) {
-        holder.lblDescription.setText(listDepensesFixes.get(position).getDescription());
-        holder.lblDate.setText(String.valueOf(listDepensesFixes.get(position).getDate()));
-        holder.lblMontant.setText(String.valueOf(listDepensesFixes.get(position).getMontant()));
+    public void onBindViewHolder(@NonNull DepenseVariableRVAdapter.MyViewHolder holder, int position) {
+        holder.lblDescription.setText(listDepensesVariables.get(position).getDescription());
+        holder.lblDate.setText(String.valueOf(listDepensesVariables.get(position).getDate()));
+        holder.lblMontant.setText(String.valueOf(listDepensesVariables.get(position).getMontant()));
     }
 
     @Override
     public int getItemCount() {
-        return listDepensesFixes.size();
+        return listDepensesVariables.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -62,7 +62,7 @@ public class DepenseFixeRVAdapter extends RecyclerView.Adapter<DepenseFixeRVAdap
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
-                    ((DepenseFixeActivity) context).openDialogueUpdateDepense(getAdapterPosition());
+                    ((DepensesVariableActivity) context).openDialogueUpdateDepense(getAdapterPosition());
                 }
             });
 
@@ -70,7 +70,7 @@ public class DepenseFixeRVAdapter extends RecyclerView.Adapter<DepenseFixeRVAdap
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
-                    ((DepenseFixeActivity) context).openDialogueDeleteDepense(getAdapterPosition());
+                    ((DepensesVariableActivity) context).openDialogueDeleteDepense(getAdapterPosition());
                 }
             });
 

@@ -335,7 +335,7 @@ public class DepenseFixeActivity extends AppCompatActivity {
         builder.setView(subView);
         AlertDialog alertDialog = builder.create();
         //Ajouter les btns de l'alerte
-        builder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -376,7 +376,7 @@ public class DepenseFixeActivity extends AppCompatActivity {
     public void openDialogueDeleteDepense(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(DepenseFixeActivity.this);
         builder.setTitle("Alert!");
-        builder.setMessage("Voulez-vous vraiment supprimer le revenue " + listDepenseFixe.get(position).getDescription() + "?");
+        builder.setMessage("Voulez-vous vraiment supprimer la depense " + listDepenseFixe.get(position).getDescription() + "?");
         builder.setCancelable(false);
         // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
