@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,7 @@ public class RevenueRVAdapter extends RecyclerView.Adapter<RevenueRVAdapter.MyVi
 
         //Attributs du row
         TextView lblDescription, lblDate, lblMontant;
-        ImageButton btnEdit, btnDelete;
+        ImageView btnEdit, btnDelete;
         Context context;
 
         public MyViewHolder(@NonNull View itemView, Context context) {
