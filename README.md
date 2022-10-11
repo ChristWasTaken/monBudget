@@ -9,7 +9,7 @@ Base de donnée: SQLite
 <br>
 
 MonBudjet est un planificateur budgétaire avec des fonctionnalité pour:<br>
-  -Ajouter/Modifier\supprimer des comptes<br>
+  *Ajouter/Modifier\supprimer des comptes<br>
   -Ajouter/Modifier\supprimer des revenus<br>
   -Ajouter/Modifier\supprimer des dépenses fixes et variables
   
