@@ -3,4 +3,4 @@ Application monBudget
 
 Projet créer par Christian Sayegh et Gabrielle Gallagher.
 
-![Screen Previews](/monBudget/previewImages/screenshot.png/?raw=true "Preview")
+![Screen Previews](https://github.com/ChristWasTaken/monBudget/blob/master/previewImages/screenshot.png/?raw=true "Preview")
