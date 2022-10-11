@@ -1,8 +1,12 @@
 # monBudget
 Application: Android
+<br>
 IDE: Android Studio
+<br>
 Langage: Java
+<br>
 Base de donnée: SQLite
+<br>
 
 MonBudjet est un planificateur budgétaire avec des fonctionnalité pour:
   -Ajouter/Modifier\supprimer des comptes
