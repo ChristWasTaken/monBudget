@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Compte;
 import model.DepenseFixe;
 import model.DepenseVariable;
 import model.Revenue;
@@ -17,6 +18,11 @@ public class InsertsDeTest {
 
     static String[] CATEGORIES = {"Habitation", "Services publics", "Assurance",
             "Emprunts", "Dépenses variables", "Autres"};
+
+    static Compte compteBnc = new Compte("Banque Nationale", 1000.00,
+            "Chequing", "Banque Nationale", 3424322, 456);
+    static Compte compteBmo = new Compte("Banque Montréal", 500.00,
+            "Chequing", "Banque Montréal", 123456, 123);
 
     static DepenseFixe DepenseFixe = new DepenseFixe("Loyer", 500.00, CATEGORIES[0],
             "Loyer", 0, LocalDate.of(2022, 10, 1), 1);
@@ -33,21 +39,21 @@ public class InsertsDeTest {
 
     static DepenseVariable depenseVariable1 = new DepenseVariable("Achat", 23.23,
             "Alimentation", "Épicerie", LocalDate.of(2022, 8, 1), 1);
-    static DepenseVariable depenseVariable2 = new DepenseVariable("Achat", 175,
+    static DepenseVariable depenseVariable2 = new DepenseVariable("Achat", 175.00,
             "Alimentation", "Épicerie", LocalDate.of(2022, 10, 1), 1);
-    static DepenseVariable depenseVariable3 = new DepenseVariable("Achat", 125,
+    static DepenseVariable depenseVariable3 = new DepenseVariable("Achat", 125.00,
             "Alimentation", "Épicerie", LocalDate.of(2022, 10, 1), 1);
-    static DepenseVariable depenseVariable4 = new DepenseVariable("Achat", 50,
+    static DepenseVariable depenseVariable4 = new DepenseVariable("Achat", 50.00,
             "Alimentation", "Épicerie", LocalDate.of(2022, 9, 1), 1);
-    static DepenseVariable depenseVariable5 = new DepenseVariable("Achat", 40,
+    static DepenseVariable depenseVariable5 = new DepenseVariable("Achat", 40.00,
             "Alimentation", "Épicerie", LocalDate.of(2022, 9, 2), 1);
-    static DepenseVariable depenseVariable6 = new DepenseVariable("Achat", 30,
+    static DepenseVariable depenseVariable6 = new DepenseVariable("Achat", 30.00,
             "Entretien ménagé", "Achat", LocalDate.of(2022, 10, 1), 1);
-    static DepenseVariable depenseVariable7 = new DepenseVariable("Achat", 50,
+    static DepenseVariable depenseVariable7 = new DepenseVariable("Achat", 50.00,
             "Entretien ménagé", "Achat", LocalDate.of(2022, 10, 14), 1);
-    static DepenseVariable depenseVariable8 = new DepenseVariable("Achat", 20,
+    static DepenseVariable depenseVariable8 = new DepenseVariable("Achat", 20.00,
             "Entretien ménagé", "Achat", LocalDate.of(2022, 9, 14), 1);
-    static DepenseVariable depenseVariable9 = new DepenseVariable("Achat", 10,
+    static DepenseVariable depenseVariable9 = new DepenseVariable("Achat", 10.00,
             "Entretien ménagé", "Achat", LocalDate.of(2022, 9, 1), 1);
 
     static Revenue revenue1 = new Revenue("Salaire", 1000.00, "Salaire",
@@ -56,6 +62,13 @@ public class InsertsDeTest {
             1, LocalDate.of(2022, 8, 15), 1);
     static Revenue revenue6 = new Revenue("Remboursement TVQ", 123.78, "Remboursement impot",
             4, LocalDate.of(2022, 6, 15), 1);
+
+    public static List<model.Compte> getComptes(){
+        List<model.Compte> comptes = new ArrayList<>();
+        comptes.add(compteBnc);
+        comptes.add(compteBmo);
+        return comptes;
+    }
 
     public static List<model.DepenseFixe> getDepensesFixes(){
         List<DepenseFixe> depensesFixes = new ArrayList<>();

@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/drawable-anydpi/ic_delete.xml" value="0.151" />
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/drawable-anydpi/ic_edit.xml" value="0.151" />
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/layout/activity_revenues.xml" value="0.3351851851851852" />
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/layout/comptes_row.xml" value="0.2833333333333333" />
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/layout/depenses_row.xml" value="0.3351851851851852" />
+        <entry key="..\:/ProjetsMobile/A17/TP_Gallagher_Sayegh/monBudget/app/src/main/res/layout/revenue_row.xml" value="0.3351851851851852" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_bilan.xml" value="0.3109375" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_comptes.xml" value="0.3723958333333333" />
         <entry key="..\:/ProjetsMobile/A17/monBudget/app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />

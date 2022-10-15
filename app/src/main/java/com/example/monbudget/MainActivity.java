@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import AccessPersistence.CompteDBAdapter;
 import AccessPersistence.DepenseFixeDBAdapter;
 import AccessPersistence.DepenseVariableDBAdapter;
 import AccessPersistence.RevenueDBAdapter;
 import Moqups.InsertsDeTest;
+import model.Compte;
 import model.DepenseFixe;
 import model.DepenseVariable;
 import model.Revenue;
@@ -66,13 +68,22 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void ajoutsStaticBidon() {
+        CompteDBAdapter compteDBAdapter = new CompteDBAdapter(this);
         DepenseFixeDBAdapter depenseFixeDBAdapter = new DepenseFixeDBAdapter(MainActivity.this);
         DepenseVariableDBAdapter depenseVariableDBAdapter = new DepenseVariableDBAdapter(MainActivity.this);
         RevenueDBAdapter revenueDBAdapter = new RevenueDBAdapter(MainActivity.this);
 
-        depenseFixeDBAdapter.open();
-        depenseVariableDBAdapter.open();
-        revenueDBAdapter.open();
+        List<Compte> listeComptes = compteDBAdapter.findAllComptes();
+        if(listeComptes.isEmpty()){
+            listeComptes = InsertsDeTest.getComptes();
+            for (Compte compte : listeComptes) {
+                compteDBAdapter.ajouterCompte(compte);
+            }
+        }
+
+//        depenseFixeDBAdapter.open();
+//        depenseVariableDBAdapter.open();
+//        revenueDBAdapter.open();
 
         List<DepenseFixe> depenseFixes = depenseFixeDBAdapter.findAllDepensesFixes();
         if(depenseFixes.isEmpty()) {
